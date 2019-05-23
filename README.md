@@ -10,7 +10,7 @@ Learn more about Azure Static Hosting in the
 
 ## Usage <a name="usage"></a>
 
-####tl;dr
+#### tl;dr
 ```sh
 ng add @azure/ng-deploy 
 ng run <project-name>:deploy
