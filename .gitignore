@@ -328,3 +328,26 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+
+# Outputs
+src/**/*.js
+!src/__mocks__/*.js
+src/**/*.js.map
+src/**/*.d.ts
+lib/**/*
+
+# IDEs
+.idea/
+jsconfig.json
+.vscode/
+
+# Misc
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Mac OSX Finder files.
+**/.DS_Store
+.DS_Store
+

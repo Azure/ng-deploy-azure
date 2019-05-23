@@ -1,0 +1,6 @@
+{
+  "id": "AzureDeploySchema",
+  "title": "Azure Deploy",
+  "description": "Deploy the app to static hosting (storage account) at Azure",
+  "properties": {}
+}

@@ -1,0 +1,6 @@
+{
+  "id": "AzureLogoutSchema",
+  "title": "Logout from Azure",
+  "description": "Clears Azure credentials from cache",
+  "properties": {}
+}

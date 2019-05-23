@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "azure-deploy-schematic-ng-add",
+  "title": "Azure Deploy ng-add schematic",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "manual": {
+      "type": "boolean",
+      "default": false,
+      "alias": "m",
+      "description": "Manually configure (select or create) the resource group and storage account. Default - false: creates a resource group and storage account with arbitrary names."
+    },
+    "subscriptionId": {
+      "type": "string",
+      "default": "",
+      "description": "subscription ID under which to select and/or create new resources",
+      "alias": "i"
+    },
+    "subscriptionName": {
+      "type": "string",
+      "default": "",
+      "description": "subscription name under which to select and/or create new resources",
+      "alias": "n"
+    },
+    "resourceGroup": {
+      "type": "string",
+      "default": "",
+      "description": "name of the Azure Resource Group to deploy to",
+      "alias": "g"
+    },
+    "account": {
+      "type": "string",
+      "default": "",
+      "description": "name of the Azure Storage Account to deploy to",
+      "alias": "a"
+    },
+    "location": {
+      "type": "string",
+      "default": "",
+      "description": "location where to create storage account e.g. \"West US\"",
+      "alias": "l"
+    },
+    "telemetry": {
+      "type": "boolean",
+      "default": true,
+      "description": "Send usage reports to Microsoft.",
+      "alias": "t"
+    }
+  },
+  "required": [],
+  "additionalProperties": true
+}

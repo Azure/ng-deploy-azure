@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Adds Angular Deploy Azure to the application without affecting any templates",
+      "factory": "./src/ng-add/index#ngAdd",
+      "schema": "./src/ng-add/schema.json",
+      "aliases": ["install"]
+    }
+  }
+}
