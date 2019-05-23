@@ -1,7 +1,7 @@
 {
   "name": "ng-deploy-azure",
-  "version": "0.1.0-beta.1",
-  "description": "A blank schematics",
+  "version": "0.0.0",
+  "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "tsc -p tsconfig.json -w",
