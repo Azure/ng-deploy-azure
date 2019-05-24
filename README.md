@@ -10,28 +10,28 @@ Learn more about Azure Static Hosting in the
 
 ## Usage <a name="usage"></a>
 
-**The package is not yet available in npm. 
+**The package is not yet available in npm.
 Please refer to [local development](local-dev) to clone, link and add the package instead of running `ng add @azure/ng-deploy`.**
 ### Quick-start
 
 1. Create a new Angular project
 
-```sh
-ng new hello-world --defaults
-cd hello-world
-```
+    ```sh
+    ng new hello-world --defaults
+    cd hello-world
+    ```
 
 1. Add `ng-deploy` to your project
 
-```sh
-ng add @azure/ng-deploy
-```
+    ```sh
+    ng add @azure/ng-deploy
+    ```
 
 1. Deploy your project to Azure
 
-```sh
-ng run hello-world:deploy
-```
+    ```sh
+    ng run hello-world:deploy
+    ```
 
 ### Requirements
 
@@ -174,8 +174,6 @@ If the validation fails, the tool will suggest a valid name. You will be able to
 
 ## Local development <a name="local-dev"></a>
 
-Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
-
 First, clone the project.
 
 Install the dependencies:
@@ -239,6 +237,10 @@ npm run test:jest
 ## Reporting Security Issues <a name="issues"></a>
 
 Security issues and bugs should be reported privately, via email, to the Microsoft Security Response Center (MSRC) at [secure@microsoft.com](mailto:secure@microsoft.com). You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Further information, including the [MSRC PGP](https://technet.microsoft.com/en-us/security/dn606155/?WT.mc_id=ng_deploy_azure-github-cxa) key, can be found in the [Security TechCenter](https://technet.microsoft.com/en-us/security/default/?WT.mc_id=ng_deploy_azure-github-cxa).
+
+## Contributing
+
+Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
 ## We'd like to thank...
 
