@@ -13,6 +13,10 @@ Please delete options that are not relevant.
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] This change requires a documentation update
 
+## How to Test
+
+- Replace this with instructions on how to test this PR
+
 ## Closing issues
 
 Put closes #XXXX in your comment to auto-close the issue that your PR fixes (if such).
