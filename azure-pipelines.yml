@@ -14,10 +14,10 @@ strategy:
       hostName: 'Hosted macOS'
     windows:
       hostName: 'Hosted VS2017'
-    node_8_x:
-      node_version: 8.x
     node_10_x:
       node_version: 10.x
+    node_12_x:
+      node_version: 12.x
 
 pool:
   name: $(hostName)
