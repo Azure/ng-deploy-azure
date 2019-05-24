@@ -81,7 +81,7 @@ export async function getResourceGroup(
         result = result.resourceGroup || result;
         resourceGroupName = result.newResourceGroup || result.name;
     }
-
+    
     if (!result || result.newResourceGroup) {
         location = location || await askLocation(); // if quickstart - location defined above
         spinner.start(`Creating resource group ${ resourceGroupName } at ${ location.name } (${ location.id })`);

@@ -21,7 +21,6 @@ export async function getResourceGroups() {
   }]);
 }
 
-export async function createResourceGroup(name: string) {
-  return Promise.resolve({ name });
-}
+export const createResourceGroup = jest.fn((name: string) => Promise.resolve({ name }))
+
 
