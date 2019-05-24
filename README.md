@@ -33,6 +33,9 @@ Learn more about Azure Static Hosting in the
     ng add @azure/ng-deploy
     ```
 
+1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
+
+
 1. Deploy your project to Azure
 
     ```sh
@@ -237,6 +240,8 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
    npm link ng-deploy-azure
    ```
 
+1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
+
 1. Then, instead of running `ng add @azure/ng-deploy`, add the local version.
 
    ```sh
@@ -246,7 +251,7 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
 1. Now you can deploy your angular app to azure.
 
    ```sh
-   ng run <project-name>:deploy
+   ng run your-angular-project:deploy
    ```
 
 ### Testing <a name="testing"></a>
