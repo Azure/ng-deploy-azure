@@ -209,10 +209,10 @@ Use the following instructions to make ng-deploy-azure available locally via `np
    npm install
    ```
 
-1. Build the project with watch:
+1. Build the project:
 
    ```sh
-   npm run build:watch
+   npm run build
    ```
 
 1. Create a local npm link:
