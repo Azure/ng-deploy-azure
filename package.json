@@ -11,7 +11,18 @@
   "keywords": [
     "schematics"
   ],
-  "author": "",
+  "author": {
+    "name": "Shmuela Jacobs",
+    "url": "https://twitter.com/ShmuelaJ"
+  },
+  "collaborators": [{
+    "name": "Shmuela Jacobs",
+    "url": "https://twitter.com/ShmuelaJ"
+  },
+  {
+    "name": "Chris Noring",
+    "url": "https://twitter.com/chris_noring"
+  }],
   "license": "MIT",
   "builders": "./builders.json",
   "schematics": "./collection.json",
