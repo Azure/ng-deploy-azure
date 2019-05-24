@@ -12,58 +12,67 @@ Learn more about Azure Static Hosting in the
 
 **The package is not yet available in npm.
 Please refer to [local development](local-dev) to clone, link and add the package instead of running `ng add @azure/ng-deploy`.**
+
 ### Quick-start
 
 1. Create a new Angular project
 
-    ```sh
-    ng new hello-world --defaults
-    cd hello-world
-    ```
+   ```sh
+   ng new hello-world --defaults
+   cd hello-world
+   ```
 
 1. Add `ng-deploy` to your project
 
-    ```sh
-    ng add @azure/ng-deploy
-    ```
+   ```sh
+   ng add @azure/ng-deploy
+   ```
 
 1. Deploy your project to Azure
 
-    ```sh
-    ng run hello-world:deploy
-    ```
+   ```sh
+   ng run hello-world:deploy
+   ```
 
 ### Requirements
 
-To get started, you need:
+To get started, you will need the following requirements.
 
-- Angular app created and managed by the Angular CLI. For help getting started with a new Angular app, check out the [Angular CLI](https://cli.angular.io/).
-- Azure subscription. If you don't have one, [create your Azure free account](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
+#### Azure
 
-The schematic runs from within an Angular project. Enter the project's directory and then follow these steps to add _ng deploy azure_ to your project, configure it, and deploy your app.
+If you don't have an Azure subscription, [create your Azure free account](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
 
-#### Step 1 - Angular CLI version 8 and above <a name="angular-cli-version"></a>
+#### Angular CLI <a name="angular-cli"></a>
 
-Run `ng --version`, make sure you have angular CLI version v8.0.0-beta.18 or greater.
+1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
 
-If needed, update the CLI following the [instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
+   ```sh
+   npm install -g @angular/cli@next
+   ```
 
 **As long as version 8 is in RC, use `@next` instead of `@latest`:**
 
-```sh
-npm install -g @angular/cli@next
-```
+1. Run `ng --version`, make sure you have angular CLI version v8.0.0-beta.18 or greater.
 
-Update your project using the command:
+1. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
 
-```sh
-ng update @angular/cli @angular/core --next=true
+1. Update your project using the command:
 
-```
+   ```sh
+   ng update @angular/cli @angular/core --next=true
+   ```
 
-Make sure TypeScript is version 3.4.5 or greater.
+#### An Angular App Created by the Angular CLI
 
-#### Step 2 - add and configure @azure/ng-deploy <a name="ng-add"></a>
+You will need an Angular app created and managed by the Angular CLI. For help getting started with a new Angular app, check out the [Angular CLI](https://cli.angular.io/).
+
+A simple app can be created with `ng new hello-world --defaults`
+
+Verify you have TypeScript version 3.4.5 or greater in your `package.json` file of your angular project
+
+## Details of ng-azure-deploy
+
+### How to add and configure @azure/ng-deploy <a name="ng-add"></a>
 
 Add _@azure/ng-deploy_ to your project by running:
 
@@ -83,9 +92,9 @@ The command will create the file `azure.json` with the deployment configuration 
 
 _Note: at the moment, the command will fail if an `azure.json` file already exists. Please remove the file before running the command._
 
-#### Step 3 - deploy <a name="deploy"></a>
+### deploy <a name="deploy"></a>
 
-Deploy your application to the selected storage account by running:
+You can deploy your application to the selected storage account by running the following command.
 
 ```sh
 ng run <project-name>:deploy
@@ -174,57 +183,66 @@ If the validation fails, the tool will suggest a valid name. You will be able to
 
 ## Local development <a name="local-dev"></a>
 
-First, clone the project.
+If you want to try the latest package locally without installing it from npm, use the following instructions. This may be useful when you want to try the latest non published version of this library or you want to make a contribution.
 
-Install the dependencies:
+Follow the instructions for [checking and updating the Angular CLI version](#angular-cli). Also, verify your of TypeScript is version 3.4.5 or greater.
 
-```sh
-npm install
-```
+### npm link
 
-Build the project with watch:
+Use the following instructions to make ng-deploy-azure available locally via `npm link`.
 
-```sh
-npm start
-```
+1. Clone the project
 
--- or without watch:
+   ```sh
+   git clone git@github.com:Azure/ng-deploy-azure.git
+   cd ng-deploy-azure
+   ```
 
-```sh
-npm run build
-```
+1. Install the dependencies
 
-Create a local npm link:
+   ```sh
+   npm install
+   ```
 
-```sh
-npm link
-```
+1. Build the project with watch:
+
+   ```sh
+   npm start
+   ```
+
+1. Create a local npm link:
+
+   ```sh
+   npm link
+   ```
 
 ### Adding to an Angular project - ng add <a name="local-dev-add"></a>
 
-The schematic runs from within an Angular project. Enter the project's directory.
+Once you have completed the previous steps to npm link the local copy of ng-deploy-azure, follow these steps to use it in a local angular project.
 
-Follow the instructions for [checking and updating the Angular CLI version](#angular-cli-version).
+1. Enter the project's directory
 
-Make sure TypeScript is version 3.4.5 or greater.
+   ```sh
+   cd your-angular-project
+   ```
 
-To add the local version of @azure/ng-deploy, link ng-deploy-azure:
+1. To add the local version of @azure/ng-deploy, link ng-deploy-azure.
 
-```sh
-npm link ng-deploy-azure
-```
+   ```sh
+   npm link ng-deploy-azure
+   ```
 
-Then, instead of running `ng add @azure/ng-deploy`, add the local version:
+1. Then, instead of running `ng add @azure/ng-deploy`, add the local version.
 
-```sh
-ng add ng-deploy-azure
-```
+   ```sh
+   ng add ng-deploy-azure
+   ```
 
-The [configuration options](#config) and the other commands (`deploy`, `logout`) are the same as in production:
+1. Now you can deploy your angular app to azure.
 
-```sh
-ng run <project-name>:deploy
-```
+   ```sh
+   ng run <project-name>:deploy
+   ```
 
 ### Testing <a name="testing"></a>
 
