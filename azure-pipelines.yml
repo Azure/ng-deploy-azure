@@ -1,0 +1,38 @@
+trigger:
+  branches:
+    include:
+    - master
+    - greenkeeper/*
+pr:
+- master
+
+strategy:
+  matrix:
+    linux:
+      hostName: 'Hosted Ubuntu 1604'
+    mac:
+      hostName: 'Hosted macOS'
+    windows:
+      hostName: 'Hosted VS2017'
+    node_8_x:
+      node_version: 8.x
+    node_10_x:
+      node_version: 10.x
+
+pool:
+  name: $(hostName)
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: $(node_version)
+  displayName: 'Install Node.js'
+
+- script: npm install
+  displayName: 'Install dependencies'
+
+- script: npm run build
+  displayName: 'Compile TypeScript and Build'
+
+- script: npm test:jest
+  displayName: 'Run jest unit tests'
