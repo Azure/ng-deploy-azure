@@ -246,7 +246,7 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
 1. Now you can deploy your angular app to azure.
 
    ```sh
-   ng run <project-name>:deploy
+   ng run your-angular-project:deploy
    ```
 
 ### Testing <a name="testing"></a>
