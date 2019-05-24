@@ -242,7 +242,7 @@ Security issues and bugs should be reported privately, via email, to the Microso
 
 Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
-## We'd like to thank...
+## Thank You
 
 - [Minko Gechev](https://github.com/mgechev) for guiding us through the new Angular CLI Architect API, which enables adding commands.
 
