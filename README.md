@@ -10,6 +10,8 @@ Learn more about Azure Static Hosting in the
 
 ## Usage <a name="usage"></a>
 
+**The package is not yet available in npm. 
+Please refer to [local development](local-dev) to clone, link and add the package instead of running `ng add @azure/ng-deploy`.**
 ### Quick-start
 
 1. Create a new Angular project
