@@ -10,33 +10,38 @@ Learn more about Azure Static Hosting in the
 
 ## Usage <a name="usage"></a>
 
-**The package is not yet available in npm.
-Please refer to [local development](local-dev) to clone, link and add the package instead of running `ng add @azure/ng-deploy`.**
+> The package is not yet available in npm. Please refer to the [local development](local-dev) section of this document to clone, link and add the package to an existing Angular project.
 
 ### Quick-start
 
+1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
+
+    ```sh
+    npm install -g @angular/cli@next
+    ```
+
 1. Create a new Angular project
 
-   ```sh
-   ng new hello-world --defaults
-   cd hello-world
-   ```
+    ```sh
+    ng new hello-world --defaults
+    cd hello-world
+    ```
 
 1. Add `ng-deploy` to your project
 
-   ```sh
-   ng add @azure/ng-deploy
-   ```
+    ```sh
+    ng add @azure/ng-deploy
+    ```
 
 1. Deploy your project to Azure
 
-   ```sh
-   ng run hello-world:deploy
-   ```
+    ```sh
+    ng run hello-world:deploy
+    ```
 
 ### Requirements
 
-To get started, you will need the following requirements.
+To get started, you will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to. Details of these requirements are in this section.
 
 #### Azure
 
@@ -46,11 +51,11 @@ If you don't have an Azure subscription, [create your Azure free account](https:
 
 1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
 
-   ```sh
-   npm install -g @angular/cli@next
-   ```
+    ```sh
+    npm install -g @angular/cli@next
+    ```
 
-**As long as version 8 is in RC, use `@next` instead of `@latest`:**
+    > As long as version 8 is in RC, use `@next` instead of `@latest`
 
 1. Run `ng --version`, make sure you have angular CLI version v8.0.0-beta.18 or greater.
 
@@ -58,9 +63,9 @@ If you don't have an Azure subscription, [create your Azure free account](https:
 
 1. Update your project using the command:
 
-   ```sh
-   ng update @angular/cli @angular/core --next=true
-   ```
+    ```sh
+    ng update @angular/cli @angular/core --next=true
+    ```
 
 #### An Angular App Created by the Angular CLI
 
