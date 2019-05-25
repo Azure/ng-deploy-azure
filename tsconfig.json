@@ -25,7 +25,6 @@
     "target": "es6",
     "types": [
       "jest",
-      "jasmine",
       "node"
     ]
   },
