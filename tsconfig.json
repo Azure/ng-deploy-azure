@@ -6,6 +6,7 @@
       "es2015",
       "dom"
     ],
+    "outDir": "out",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
@@ -32,6 +33,8 @@
     "src/**/*"
   ],
   "exclude": [
-    "src/*/files/**/*"
+    "src/*/files/**/*",
+    "**/__mocks__/*",
+    "**/__tests__/*"
   ]
 }
