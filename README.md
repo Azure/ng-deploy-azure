@@ -43,6 +43,12 @@
    ng run hello-world:deploy
    ```
 
+You will see output similar to the following. Browser to the link and view your site running in Azure blob storage!
+
+```sh
+see your deployed site at https://helloworldstatic52.z22.web.core.windows.net/
+```
+
 ### Requirements
 
 You will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to Azure. Details of these requirements are in this section.
