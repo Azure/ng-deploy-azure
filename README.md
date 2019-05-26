@@ -10,15 +10,10 @@
 
 ### Quick-start
 
-1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
+1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater) and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli@next
-   ```
-
-1. Create a new Angular project
-
-   ```sh
    ng new hello-world --defaults
    cd hello-world
    ```
@@ -31,19 +26,19 @@
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Build your Angular app
+1. Build your Angular app.
 
    ```sh
    ng build --prod
    ```
 
-1. Deploy your project to Azure
+1. Deploy your project to Azure.
 
    ```sh
    ng run hello-world:deploy
    ```
 
-You will see output similar to the following. Browser to the link and view your site running in Azure blob storage!
+You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
 ```sh
 see your deployed site at https://helloworldstatic52.z22.web.core.windows.net/
