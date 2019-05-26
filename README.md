@@ -272,11 +272,11 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
 ## Thank You
 
-- [Minko Gechev](https://github.com/mgechev) for guiding us through the new Angular CLI Architect API, which enables adding commands.
+- [Minko Gechev](https://twitter.com/mgechev) for guiding us through the new Angular CLI Architect API, which enables adding commands.
 
-- [Brian Holt](https://github.com/btholt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
+- [Brian Holt](https://twitter.com/holtbt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
 
-- [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
+- [John Papa](https://twitter.com/john_papa) for guiding through and supporting the development, publish and release.
 
 ## Related Resources
 
