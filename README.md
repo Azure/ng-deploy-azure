@@ -55,7 +55,7 @@ You will need the Angular CLI, an Angular project, and an Azure Subscription to 
 
 #### Azure
 
-If you don't have an Azure subscription, [create your Azure free account](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
+If you don't have an Azure subscription, [create your Azure free account from this link](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
 
 #### Angular CLI <a name="angular-cli"></a>
 
