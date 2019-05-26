@@ -2,11 +2,7 @@
 
 **Deploy Angular apps to Azure using the Angular CLI**
 
-This Angular schematic helps you deploy your Angular app to Azure Static Hosting.
-With Azure's Blob storage, deploying and hosting a static website is simple and cost-efficient.
-
-Learn more about Azure Static Hosting in the
-[blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
+`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting.
 
 ## Usage <a name="usage"></a>
 
@@ -282,3 +278,7 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - [Brian Holt](https://github.com/btholt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
 
 - [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
+
+## Resources
+
+- Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
