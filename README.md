@@ -2,7 +2,7 @@
 
 **Deploy Angular apps to Azure using the Angular CLI**
 
-`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting.
+`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting using the [Angular CLI](https://angular.io/cli).
 
 ## Usage <a name="usage"></a>
 
@@ -282,6 +282,8 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
 - [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
 
-## Resources
+## Related Resources
 
 - Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
+- Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
+- Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
