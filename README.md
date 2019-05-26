@@ -1,14 +1,14 @@
 # @azure/ng-deploy
 
+[![npm version](https://badge.fury.io/js/%40azure%2Fng-deploy.svg)](https://www.npmjs.com/package/@azure/ng-deploy)
+
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
+
 **Deploy Angular apps to Azure using the Angular CLI**
 
-`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting.
+`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting using the [Angular CLI](https://angular.io/cli).
 
-## Usage <a name="usage"></a>
-
-> The package is not yet available in npm. Please refer to the [local development](local-dev) section of this document to clone, link and add the package to an existing Angular project.
-
-### Quick-start
+## Quick-start <a name="quickstart"></a>
 
 1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater) and create a new Angular project.
 
@@ -44,15 +44,15 @@ You will see output similar to the following. Browse to the link and view your s
 see your deployed site at https://helloworldstatic52.z22.web.core.windows.net/
 ```
 
-### Requirements
+## Requirements
 
 You will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to Azure. Details of these requirements are in this section.
 
-#### Azure
+### Azure
 
 If you don't have an Azure subscription, [create your Azure free account from this link](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
 
-#### Angular CLI <a name="angular-cli"></a>
+### Angular CLI <a name="angular-cli"></a>
 
 1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
 
@@ -72,7 +72,7 @@ If you don't have an Azure subscription, [create your Azure free account from th
    ng update @angular/cli @angular/core --next=true
    ```
 
-#### An Angular App Created by the Angular CLI
+### An Angular App Created by the Angular CLI
 
 You will need an Angular app created and managed by the Angular CLI. For help getting started with a new Angular app, check out the [Angular CLI](https://cli.angular.io/).
 
@@ -276,12 +276,15 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
 ## Thank You
 
-- [Minko Gechev](https://github.com/mgechev) for guiding us through the new Angular CLI Architect API, which enables adding commands.
+- [Minko Gechev](https://twitter.com/mgechev) for guiding us through the new Angular CLI Architect API, which enables adding commands.
 
-- [Brian Holt](https://github.com/btholt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
+- [Brian Holt](https://twitter.com/holtbt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
 
+- [John Papa](https://twitter.com/john_papa) for guiding through and supporting the development, publish and release.
+
+## Related Resources
+
+- Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa)
+- Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
+- # Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
 - [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
-
-## Resources
-
-- Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
