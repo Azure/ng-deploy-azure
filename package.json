@@ -1,9 +1,9 @@
 {
   "name": "@azure/ng-deploy",
   "version": "0.1.0-beta.3",
-  "main": "out/index.js",
+  "main": "out/ng-add/index.js",
   "files": [
-    "out/ng-add/index.js"
+    "out/"
   ],
   "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
