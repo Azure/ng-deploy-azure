@@ -23,21 +23,21 @@
    cd hello-world
    ```
 
-1. Add `ng-deploy` to your project
+1. Add `ng-deploy` to your project and create your Azure blob storage resources.
 
    ```sh
-   ng add @azure/ng-deploy
+   ng add @azure/ng-deploy@beta
    ```
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1) Build your Angular app
+1. Build your Angular app
 
    ```sh
    ng build --prod
    ```
 
-1) Deploy your project to Azure
+1. Deploy your project to Azure
 
    ```sh
    ng run hello-world:deploy
@@ -45,7 +45,7 @@
 
 ### Requirements
 
-To get started, you will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to. Details of these requirements are in this section.
+You will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to Azure. Details of these requirements are in this section.
 
 #### Azure
 
