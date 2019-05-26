@@ -2,11 +2,7 @@
 
 **Deploy Angular apps to Azure using the Angular CLI**
 
-This Angular schematic helps you deploy your Angular app to Azure Static Hosting.
-With Azure's Blob storage, deploying and hosting a static website is simple and cost-efficient.
-
-Learn more about Azure Static Hosting in the
-[blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
+`@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting.
 
 ## Usage <a name="usage"></a>
 
@@ -14,51 +10,57 @@ Learn more about Azure Static Hosting in the
 
 ### Quick-start
 
-1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
+1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater) and create a new Angular project.
 
-    ```sh
-    npm install -g @angular/cli@next
-    ```
+   ```sh
+   npm install -g @angular/cli@next
+   ng new hello-world --defaults
+   cd hello-world
+   ```
 
-1. Create a new Angular project
+1. Add `ng-deploy` to your project and create your Azure blob storage resources.
 
-    ```sh
-    ng new hello-world --defaults
-    cd hello-world
-    ```
-
-1. Add `ng-deploy` to your project
-
-    ```sh
-    ng add @azure/ng-deploy
-    ```
+   ```sh
+   ng add @azure/ng-deploy@beta
+   ```
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
+1. Build your Angular app.
 
-1. Deploy your project to Azure
+   ```sh
+   ng build --prod
+   ```
 
-    ```sh
-    ng run hello-world:deploy
-    ```
+1. Deploy your project to Azure.
+
+   ```sh
+   ng run hello-world:deploy
+   ```
+
+You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
+
+```sh
+see your deployed site at https://helloworldstatic52.z22.web.core.windows.net/
+```
 
 ### Requirements
 
-To get started, you will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to. Details of these requirements are in this section.
+You will need the Angular CLI, an Angular project, and an Azure Subscription to deploy to Azure. Details of these requirements are in this section.
 
 #### Azure
 
-If you don't have an Azure subscription, [create your Azure free account](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
+If you don't have an Azure subscription, [create your Azure free account from this link](https://azure.microsoft.com/en-us/free/?WT.mc_id=ng_deploy_azure-github-cxa).
 
 #### Angular CLI <a name="angular-cli"></a>
 
 1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
 
-    ```sh
-    npm install -g @angular/cli@next
-    ```
+   ```sh
+   npm install -g @angular/cli@next
+   ```
 
-    > As long as version 8 is in RC, use `@next` instead of `@latest`
+   > As long as version 8 is in RC, use `@next` instead of `@latest`
 
 1. Run `ng --version`, make sure you have angular CLI version v8.0.0-beta.18 or greater.
 
@@ -66,9 +68,9 @@ If you don't have an Azure subscription, [create your Azure free account](https:
 
 1. Update your project using the command:
 
-    ```sh
-    ng update @angular/cli @angular/core --next=true
-    ```
+   ```sh
+   ng update @angular/cli @angular/core --next=true
+   ```
 
 #### An Angular App Created by the Angular CLI
 
@@ -254,6 +256,8 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
    ng run your-angular-project:deploy
    ```
 
+> You can remove the link later by running `npm unlink`
+
 ### Testing <a name="testing"></a>
 
 Testing is done with [Jest](https://jestjs.io/). To run the tests:
@@ -277,3 +281,7 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - [Brian Holt](https://github.com/btholt) for creating [azez](https://github.com/btholt/azez), which provided us an (az)easy start.
 
 - [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
+
+## Resources
+
+- Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa).
