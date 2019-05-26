@@ -261,6 +261,8 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
    ng run your-angular-project:deploy
    ```
 
+> You can remove the link later by running `npm unlink`
+
 ### Testing <a name="testing"></a>
 
 Testing is done with [Jest](https://jestjs.io/). To run the tests:
