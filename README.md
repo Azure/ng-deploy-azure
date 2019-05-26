@@ -1,5 +1,8 @@
 # @azure/ng-deploy
 
+[![npm version](https://badge.fury.io/js/%40azure%2Fng-deploy.svg)](https://www.npmjs.com/package/@azure/ng-deploy)
+
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
 **Deploy Angular apps to Azure using the Angular CLI**
 
 `@azure/ng-deploy` helps you deploy your Angular app to Azure Static Hosting using the [Angular CLI](https://angular.io/cli).
