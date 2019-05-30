@@ -119,7 +119,7 @@ You may be asked to sign in to Azure again. Then, the project will be deployed t
 To clear the cached credentials run:
 
 ```sh
-ng run <project-name>:logout
+ng run <project-name>:azureLogout
 ```
 
 This command is available only after signing in to Azure.
