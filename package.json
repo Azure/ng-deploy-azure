@@ -21,7 +21,8 @@
     "name": "Shmuela Jacobs",
     "url": "https://twitter.com/ShmuelaJ"
   },
-  "collaborators": [{
+  "contributors": [
+    {
       "name": "Shmuela Jacobs",
       "url": "https://twitter.com/ShmuelaJ"
     },
@@ -30,6 +31,17 @@
       "url": "https://twitter.com/chris_noring"
     }
   ],
+  "homepage": "https://github.com/Azure/ng-deploy-azure/",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Azure/ng-deploy-azure.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/ng-deploy-azure/"
+  },
+  "engines": {
+    "node": ">=8"
+  },
   "license": "MIT",
   "builders": "./builders.json",
   "schematics": "./collection.json",
@@ -65,6 +77,7 @@
     "@types/configstore": "^4.0.0",
     "@types/glob": "^7.1.1",
     "@types/inquirer": "0.0.44",
+    "@types/jasmine": "^3.3.12",
     "@types/jest": "^24.0.13",
     "@types/mime-types": "^2.1.0",
     "@types/mocha": "^5.2.5",
