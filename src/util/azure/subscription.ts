@@ -39,7 +39,7 @@ export async function selectSubscription(
             }
             return subs[0].id;
         } else {
-            const { sub } = await prompt([
+            const { sub } = await prompt<{ sub: any }>([
                 {
                     type: 'list',
                     name: 'sub',

@@ -5,7 +5,7 @@
 import { ResourceManagementClient } from "@azure/arm-resources";
 import { ListItem } from "../prompt/list";
 import { DeviceTokenCredentials } from "@azure/ms-rest-nodeauth";
-import * as Models from '@azure/arm-resources/lib/models/index';
+import { ResourceGroupsCreateOrUpdateResponse } from "@azure/arm-resources/esm/models";
 
 export interface ResourceGroupDetails extends ListItem {
   id: string;
@@ -25,7 +25,8 @@ export async function createResourceGroup(
   subscription: string,
   creds: DeviceTokenCredentials,
   location: string
-): Promise<Models.ResourceGroupsCreateOrUpdateResponse> {
+): Promise<ResourceGroupsCreateOrUpdateResponse> {
+
   // TODO: throws an error here if the subscription is wrong
   const client = new ResourceManagementClient(creds, subscription);
   const resourceGroupRes = await client.resourceGroups.createOrUpdate(name, { location });
