@@ -40,9 +40,9 @@
   "builders": "./builders.json",
   "schematics": "./collection.json",
   "dependencies": {
-    "@angular-devkit/architect": "^0.800.0-beta.14",
-    "@angular-devkit/core": "8.0.0-beta.14",
-    "@angular-devkit/schematics": "^8.0.0-beta.14",
+    "@angular-devkit/architect": "^0.800.1",
+    "@angular-devkit/core": "^8.0.1",
+    "@angular-devkit/schematics": "^8.0.1",
     "@azure/arm-resources": "^1.0.0",
     "@azure/arm-storage": "^7.0.0",
     "@azure/ms-rest-azure-env": "^1.1.1",
@@ -63,7 +63,7 @@
     "ora": "^3.4.0",
     "promise-limit": "^2.7.0",
     "tslib": "^1.9.3",
-    "typescript": "~3.2.2"
+    "typescript": "~3.4.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -79,9 +79,9 @@
     "jasmine": "^3.0.0",
     "jest": "^24.8.0",
     "prettier": "^1.16.4",
-    "schematics-utilities": "^1.1.1",
+    "schematics-utilities": "^1.1.2",
     "ts-jest": "^24.0.2",
     "tslint-angular": "^1.1.2",
-    "typescript": "~3.2.2"
+    "typescript": "~3.4.0"
   }
 }
