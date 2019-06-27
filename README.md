@@ -1,10 +1,10 @@
-[![Build Status](https://dev.azure.com/devrel/chris-noring-test/_apis/build/status/Azure.ng-deploy-azure?branchName=master)](https://dev.azure.com/devrel/chris-noring-test/_build/latest?definitionId=19&branchName=master)
-
 # @azure/ng-deploy
 
 [![npm version](https://badge.fury.io/js/%40azure%2Fng-deploy.svg)](https://www.npmjs.com/package/@azure/ng-deploy)
 
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
+
+[![Build Status](https://dev.azure.com/devrel/chris-noring-test/_apis/build/status/Azure.ng-deploy-azure?branchName=master)](https://dev.azure.com/devrel/chris-noring-test/_build/latest?definitionId=19&branchName=master)
 
 **Deploy Angular apps to Azure using the Angular CLI**
 
