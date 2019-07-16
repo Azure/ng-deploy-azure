@@ -1,3 +1,5 @@
 console.log('using mock spinner');
-export const spin = jest.fn();
+export const spinner = {
+  start: jest.fn()
+}
 

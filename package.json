@@ -9,7 +9,7 @@
   ],
   "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
-    "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -w",
+    "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -p tsconfig.json",
     "start": "npm run build:watch",
     "build:watch": "npm run build -- -w",
     "test:jest": "jest --watch",
