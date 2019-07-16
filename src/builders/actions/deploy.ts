@@ -17,7 +17,6 @@ import {
 } from '@azure/storage-blob';
 import * as promiseLimit from 'promise-limit';
 import * as ProgressBar from 'ascii-progress';
-import { promisify } from 'util';
 import { BuilderContext, Target } from '@angular-devkit/architect';
 import { AzureHostingConfig } from '../../util/workspace/azure-json';
 import { StorageManagementClient } from '@azure/arm-storage';
@@ -101,17 +100,12 @@ export default async function deploy(context: BuilderContext, projectRoot: strin
     // TODO: log url for account at Azure portal
 }
 
-async function getFiles(context: BuilderContext, filesPath: string, projectRoot: string) {
+function getFiles(context: BuilderContext, filesPath: string, projectRoot: string) {
 
-    const files = await promisify(glob)(`/*`, {
+    return glob.sync(`**`, {
         ignore: ['.git', '.azez.json'],
-        root: filesPath,
+        cwd: filesPath,
         nodir: true,
-        nomount: true
-    });
-
-    return files.map(file => {
-        return file[0] === '/' ? file.slice(1) : file;
     });
 }
 
