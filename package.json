@@ -51,7 +51,7 @@
     "@angular-devkit/architect": "^0.800.1",
     "@angular-devkit/core": "^8.0.1",
     "@angular-devkit/schematics": "^8.0.1",
-    "@azure/arm-resources": "^1.1.0",
+    "@azure/arm-resources": "^1.0.0",
     "@azure/arm-storage": "^7.0.0",
     "@azure/ms-rest-azure-env": "^1.1.1",
     "@azure/ms-rest-nodeauth": "^0.8.3",
