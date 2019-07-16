@@ -9,7 +9,7 @@
   ],
   "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
-    "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json",
+    "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -w",
     "start": "npm run build:watch",
     "build:watch": "npm run build -- -w",
     "test:jest": "jest --watch",
@@ -51,7 +51,7 @@
     "@angular-devkit/architect": "^0.800.0-beta.14",
     "@angular-devkit/core": "8.0.0-beta.14",
     "@angular-devkit/schematics": "^8.0.0-beta.14",
-    "@azure/arm-resources": "^1.0.0",
+    "@azure/arm-resources": "^1.1.0",
     "@azure/arm-storage": "^7.0.0",
     "@azure/ms-rest-azure-env": "^1.1.1",
     "@azure/ms-rest-nodeauth": "^0.8.3",
