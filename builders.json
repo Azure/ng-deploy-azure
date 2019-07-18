@@ -2,13 +2,13 @@
   "$schema": "@angular-devkit/architect/src/builders-schema.json",
   "builders": {
     "deploy": {
-      "implementation": "./src/builders/deploy.builder",
-      "schema": "./src/builders/deploy.schema.json",
+      "implementation": "./out/builders/deploy.builder",
+      "schema": "./out/builders/deploy.schema.json",
       "description": "Deploy to Azure builder"
     },
     "logout": {
-      "implementation": "./src/builders/logout.builder",
-      "schema": "./src/builders/logout.schema.json",
+      "implementation": "./out/builders/logout.builder",
+      "schema": "./out/builders/logout.schema.json",
       "description": "Logout from Azure builder"
     }
   }

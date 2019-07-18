@@ -26,7 +26,6 @@ export async function createResourceGroup(
   creds: DeviceTokenCredentials,
   location: string
 ): Promise<ResourceGroupsCreateOrUpdateResponse> {
-
   // TODO: throws an error here if the subscription is wrong
   const client = new ResourceManagementClient(creds, subscription);
   const resourceGroupRes = await client.resourceGroups.createOrUpdate(name, { location });

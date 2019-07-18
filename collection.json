@@ -3,8 +3,8 @@
   "schematics": {
     "ng-add": {
       "description": "Adds Angular Deploy Azure to the application without affecting any templates",
-      "factory": "./src/ng-add/index#ngAdd",
-      "schema": "./src/ng-add/schema.json",
+      "factory": "./out/ng-add/index#ngAdd",
+      "schema": "./out/ng-add/schema.json",
       "aliases": ["install"]
     }
   }
