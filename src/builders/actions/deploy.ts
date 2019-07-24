@@ -16,7 +16,7 @@ import {
     SharedKeyCredential
 } from '@azure/storage-blob';
 import * as promiseLimit from 'promise-limit';
-import * as ProgressBar from 'ascii-progress';
+import * as ProgressBar from 'progress';
 import { BuilderContext, Target } from '@angular-devkit/architect';
 import { AzureHostingConfig } from '../../util/workspace/azure-json';
 import { StorageManagementClient } from '@azure/arm-storage';
@@ -118,11 +118,10 @@ export async function uploadFilesToAzure(
     context.logger.info('preparing static deploy');
     const containerURL = ContainerURL.fromServiceURL(serviceURL, '$web');
 
-    const bar = new ProgressBar({
-        schema:
-            '[:filled.brightGreen:blank] :current/:total files uploaded | :percent done | :elapseds | eta: :etas',
-        total: files.length
-    });
+    const bar = new ProgressBar(
+        '[:bar] :current/:total files uploaded | :percent done | :elapseds | eta: :etas',
+        { total: files.length }
+    );
 
     bar.tick(0);
 
@@ -150,6 +149,6 @@ export async function uploadFilesToAzure(
         bar.tick(1);
     });
 
-    bar.clear();
+    bar.terminate();
     context.logger.info('deploying static site');
 }
