@@ -48,7 +48,7 @@
   "builders": "./builders.json",
   "schematics": "./collection.json",
   "dependencies": {
-    "@angular-devkit/architect": "^0.800.1",
+    "@angular-devkit/architect": "^0.801.2",
     "@angular-devkit/core": "^8.0.1",
     "@angular-devkit/schematics": "^8.0.1",
     "@azure/arm-resources": "^1.0.0",
