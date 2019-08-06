@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { NodeJsSyncHost } from '@angular-devkit/core/node';
-import { experimental, normalize } from '@angular-devkit/core';
+import { experimental, normalize, getSystemPath } from '@angular-devkit/core';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import { AzureHostingConfig, AzureJSON } from '../util/workspace/azure-json';
@@ -21,11 +21,12 @@ export default createBuilder<any>(
         }
 
         const project = workspace.getProject(context.target.project);
+        const workspaceRoot = getSystemPath(workspace.root);
 
-        const azureProject = getAzureHostingConfig(workspace.root, context.target.project, builderConfig.config);
+        const azureProject = getAzureHostingConfig(workspaceRoot, context.target.project, builderConfig.config);
 
         try {
-            await deploy(context, join(workspace.root, project.root), azureProject);
+            await deploy(context, join(workspaceRoot, project.root), azureProject);
         } catch (e) {
             context.logger.error('Error when trying to deploy: ');
             context.logger.error(e.message);

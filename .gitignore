@@ -335,7 +335,7 @@ src/**/*.js
 !src/__mocks__/*.js
 src/**/*.js.map
 src/**/*.d.ts
-!src/@types/ascii-progress.d.ts
+!src/@types/progress.d.ts
 lib/**/*
 
 # IDEs
