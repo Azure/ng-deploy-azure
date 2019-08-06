@@ -108,7 +108,7 @@ export class AngularWorkspace {
 
     addLogoutArchitect() {
         this.getArchitect()['azureLogout'] = {
-            builder: 'ng-deploy-azure:logout'
+            builder: '@azure/ng-deploy:logout'
         };
 
         this.updateTree();
@@ -116,7 +116,7 @@ export class AngularWorkspace {
 
     addDeployArchitect() {
         this.getArchitect()['deploy'] = {
-            builder: 'ng-deploy-azure:deploy',
+            builder: '@azure/ng-deploy:deploy',
             options: {
                 host: 'Azure',
                 type: 'static',
