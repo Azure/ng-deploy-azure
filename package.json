@@ -12,7 +12,8 @@
     "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -p tsconfig.json",
     "start": "npm run build:watch",
     "build:watch": "npm run build -- -w",
-    "test:jest": "jest --watch",
+    "test:jest": "jest",
+    "test:jest:watch": "jest --watch",
     "copy:builders:json": "cp ./src/builders/*.json ./out/builders",
     "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add"
   },
