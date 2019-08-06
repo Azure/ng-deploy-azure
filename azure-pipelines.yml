@@ -4,18 +4,40 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
+  branches:
+    include:
+    - master
+    - greenkeeper/*
+pr:
 - master
 
+strategy:
+  matrix:
+    linux:
+      hostName: 'Hosted Ubuntu 1604'
+    mac:
+      hostName: 'Hosted macOS'
+    windows:
+      hostName: 'Hosted VS2017'
+    node_10_x:
+      node_version: 10.x
+    node_12_x:
+      node_version: 12.x
+
 pool:
-  vmImage: 'ubuntu-latest'
+  name: $(hostName)
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: $(node_version)
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- script: npm install
+  displayName: 'Install dependencies'
+
+- script: npm run build
+  displayName: 'Compile TypeScript and Build'
+
+  - script: npm run test:jest
+  displayName: 'Run jest unit tests'
