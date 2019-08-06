@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 
+const azureJsonFile = 'azure.json';
+
 export interface AzureDeployConfig {
     subscription: string;
     resourceGroupName: string;
@@ -26,18 +28,30 @@ export interface AzureJSON {
     hosting: AzureHostingConfig[];
 }
 
-export function generateAzureJson(tree: Tree, appDeployConfig: AppDeployConfig, azureDeployConfig: AzureDeployConfig) {
-    const path = 'azure.json';
-    const azureJson: AzureJSON = tree.exists(path) ? safeReadJSON(path, tree) : emptyAzureJson();
+export function readAzureJson(tree: Tree): AzureJSON | null {
+    return tree.exists(azureJsonFile) ? safeReadJSON(azureJsonFile, tree) : null;
+}
 
-    if (azureJson.hosting.find(config => config.app.project === appDeployConfig.project)) {
-        // TODO: if exists - update?
-        throw new SchematicsException(`Target ${ appDeployConfig.project } already exists in ${ path }`);
+export function generateAzureJson(tree: Tree, appDeployConfig: AppDeployConfig, azureDeployConfig: AzureDeployConfig) {
+    const azureJson: AzureJSON = readAzureJson(tree) || emptyAzureJson();
+    const existingHostingConfigIndex = getAzureHostingConfigIndex(azureJson, appDeployConfig.project);
+    const hostingConfig = generateHostingConfig(appDeployConfig, azureDeployConfig);
+
+    if (existingHostingConfigIndex >= 0) {
+        azureJson.hosting[existingHostingConfigIndex] = hostingConfig;
+    } else {
+        azureJson.hosting.push(hostingConfig);
     }
 
-    azureJson.hosting.push(generateHostingConfig(appDeployConfig, azureDeployConfig));
+    overwriteIfExists(tree, azureJsonFile, stringifyFormatted(azureJson));
+}
 
-    overwriteIfExists(tree, path, stringifyFormatted(azureJson));
+export function getAzureHostingConfig(azureJson: AzureJSON, projectName: string): AzureHostingConfig | undefined {
+    return azureJson.hosting.find(config => config.app.project === projectName);
+}
+
+function getAzureHostingConfigIndex(azureJson: AzureJSON, project: string): number {
+    return azureJson.hosting.findIndex(config => config.app.project === project);
 }
 
 const overwriteIfExists = (tree: Tree, path: string, content: string) => {
@@ -67,7 +81,6 @@ function safeReadJSON(path: string, tree: Tree) {
         throw new SchematicsException(`Error when parsing ${ path }: ${ e.message }`);
     }
 }
-
 
 function generateHostingConfig(appDeployConfig: AppDeployConfig, azureDeployConfig: AzureDeployConfig) {
     return {
