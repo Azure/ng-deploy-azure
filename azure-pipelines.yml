@@ -39,5 +39,5 @@ steps:
 - script: npm run build
   displayName: 'Compile TypeScript and Build'
 
-  - script: npm run test:jest
+- script: npm run test:jest
   displayName: 'Run jest unit tests'
