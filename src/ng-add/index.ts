@@ -28,7 +28,7 @@ export function addDeployAzure(_options: AddOptions): Rule {
         const hostingConfig = azureJson ? getAzureHostingConfig(azureJson, project.projectName) : null;
 
         if (!hostingConfig || await confirm(`Overwrite existing Azure config for ${ project.projectName }?`)) {
-
+            
             const auth = await loginToAzure(_context.logger);
             const credentials = auth.credentials as DeviceTokenCredentials;
             const subscription = await selectSubscription(auth.subscriptions, _options, _context.logger);

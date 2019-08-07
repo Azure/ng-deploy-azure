@@ -1,0 +1,4 @@
+*.spec.ts
+*.test.json
+__mocks__
+__tests__
