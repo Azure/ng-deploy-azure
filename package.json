@@ -75,6 +75,7 @@
     "typescript": "~3.4.0"
   },
   "devDependencies": {
+    "@schematics/angular": "^8.2.0",
     "@types/chai": "^4.0.4",
     "@types/conf": "^2.1.0",
     "@types/configstore": "^4.0.0",

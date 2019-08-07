@@ -181,7 +181,7 @@ export async function createAccount(
         `https://${ account }.blob.core.windows.net`,
         pipeline
     );
-    spinner.start('setting container to be publicly available static site');
+    spinner.start('Setting container to be publicly available static site');
     await setStaticSiteToPublic(serviceURL);
     spinner.succeed();
 }
