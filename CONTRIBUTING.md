@@ -58,10 +58,10 @@ Once you have completed the previous steps to npm link the local copy of ng-depl
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Then, instead of running `ng add @azure/ng-deploy`, add the local version.
+1. Then, running `ng add @azure/ng-deploy` will use the locally linked version.
 
    ```sh
-   ng add ng-deploy-azure
+   ng add @azure/ng-deploy
    ```
 
 1. Now you can deploy your angular app to azure.
