@@ -18,7 +18,10 @@
     "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "angular",
+    "azure",
+    "deploy"
   ],
   "author": {
     "name": "Shmuela Jacobs",
@@ -32,6 +35,10 @@
     {
       "name": "Chris Noring",
       "url": "https://twitter.com/chris_noring"
+    },
+    {
+      "name": "Yohan Lasorsa",
+      "url": "https://twitter.com/sinedied"
     }
   ],
   "homepage": "https://github.com/Azure/ng-deploy-azure/",
