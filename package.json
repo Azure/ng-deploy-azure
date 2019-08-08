@@ -85,13 +85,16 @@
     "@types/jest": "^24.0.13",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^10.12.18",
+    "@types/progress": "^2.0.3",
     "jest": "^24.8.0",
     "schematics-utilities": "^1.1.2",
     "ts-jest": "^24.0.2",
     "typescript": "~3.4.0"
   },
   "jest": {
-    "roots": ["<rootDir>/src"],
+    "roots": [
+      "<rootDir>/src"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     }
