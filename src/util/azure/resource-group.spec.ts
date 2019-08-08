@@ -2,9 +2,9 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { getResourceGroup, ResourceGroup } from '../resource-group';
+import { getResourceGroup, ResourceGroup } from './resource-group';
 import { DeviceTokenCredentials } from '@azure/ms-rest-nodeauth';
-import { AddOptions } from '../../shared/types';
+import { AddOptions } from '../shared/types';
 
 const RESOURCE_GROUP = 'GROUP';
 
@@ -20,11 +20,11 @@ const logger = {
   fatal: jest.fn()
 };
 
-jest.mock('../resource-group-helper');
-jest.mock('../../prompt/name-generator');
-jest.mock('../../prompt/spinner');
+jest.mock('./resource-group-helper');
+jest.mock('../prompt/name-generator');
+jest.mock('../prompt/spinner');
 
-import { createResourceGroup } from '../resource-group-helper';
+import { createResourceGroup } from './resource-group-helper';
 const createResourceGroupMock: jest.Mock<any, any> = <jest.Mock<any, any>>createResourceGroup;
 
 describe('resource group', () => {

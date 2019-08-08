@@ -2,9 +2,9 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { selectSubscription } from '../subscription';
+import { selectSubscription } from './subscription';
 import { LinkedSubscription } from '@azure/ms-rest-nodeauth';
-import { AddOptions } from '../../shared/types';
+import { AddOptions } from '../shared/types';
 
 jest.mock('inquirer');
 
