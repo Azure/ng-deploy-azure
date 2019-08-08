@@ -89,5 +89,11 @@
     "schematics-utilities": "^1.1.2",
     "ts-jest": "^24.0.2",
     "typescript": "~3.4.0"
+  },
+  "jest": {
+    "roots": ["<rootDir>/src"],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
   }
 }
