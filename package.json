@@ -14,6 +14,7 @@
     "build:watch": "npm run build -- -w",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
+    "test:e2e": "./scripts/test.sh",
     "copy:builders:json": "cp ./src/builders/*.json ./out/builders",
     "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add"
   },
