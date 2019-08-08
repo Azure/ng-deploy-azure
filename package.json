@@ -11,7 +11,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -p tsconfig.json",
     "start": "npm run build:watch",
-    "build:watch": "npm run build -- -w",
+    "build:watch": "npm run build -s -- -w",
+    "format": "npm run format:check -s -- --write",
+    "format:check": "prettier -l \"./src/**/*.{json,ts}\"",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
     "copy:builders:json": "cp ./src/builders/*.json ./out/builders",
@@ -86,7 +88,10 @@
     "@types/mime-types": "^2.1.0",
     "@types/node": "^10.12.18",
     "@types/progress": "^2.0.3",
+    "husky": "^3.0.2",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
     "schematics-utilities": "^1.1.2",
     "ts-jest": "^24.0.2",
     "typescript": "~3.4.0"
@@ -97,6 +102,15 @@
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
     }
   }
 }

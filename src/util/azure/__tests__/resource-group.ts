@@ -6,7 +6,6 @@ import { getResourceGroup, ResourceGroup } from '../resource-group';
 import { DeviceTokenCredentials } from '@azure/ms-rest-nodeauth';
 import { AddOptions } from '../../shared/types';
 
-
 const RESOURCE_GROUP = 'GROUP';
 
 const credentials = <DeviceTokenCredentials>{};
@@ -34,21 +33,23 @@ describe('resource group', () => {
     createResourceGroupMock.mockClear();
   });
 
-  test.only('should create resource group', async() => {
+  test.only('should create resource group', async () => {
     const subscription = '';
     await getResourceGroup(credentials, subscription, options, logger);
 
     expect(createResourceGroupMock.mock.calls[0][0]).toBe(RESOURCE_GROUP);
   });
 
-  test('should use existing resource group and return it', async() => {
+  test('should use existing resource group and return it', async () => {
     // there needs to be a match towards resource group list
     const subscription = '';
-    const existingMockResourceGroup = 'mock2'
-    const optionsWithMatch = { ...options, resourceGroup: existingMockResourceGroup };
+    const existingMockResourceGroup = 'mock2';
+    const optionsWithMatch = {
+      ...options,
+      resourceGroup: existingMockResourceGroup
+    };
     const resourceGroup: ResourceGroup = await getResourceGroup(credentials, subscription, optionsWithMatch, logger);
 
-    
     expect(createResourceGroupMock.mock.calls.length).toBe(0);
 
     expect(logger.info.mock.calls.length).toBe(1);

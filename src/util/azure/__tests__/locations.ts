@@ -15,4 +15,4 @@ describe('location', () => {
     expect(actual && actual.id).toBe('southafricanorth');
     expect(actual && actual.name).toBe('South Africa North');
   });
-})
+});

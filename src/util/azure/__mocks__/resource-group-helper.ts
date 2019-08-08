@@ -4,23 +4,23 @@
  *--------------------------------------------------------------------------------------------*/
 
 export async function getResourceGroups() {
-  return Promise.resolve([{
-    id: '1',
-    name: 'mock',
-    location: 'location'
-  },
-  {
-    id: '2',
-    name: 'mock2',
-    location: 'location'
-  },
-  {
-    id: '3',
-    name: 'mock3',
-    location: 'location'
-  }]);
+  return Promise.resolve([
+    {
+      id: '1',
+      name: 'mock',
+      location: 'location'
+    },
+    {
+      id: '2',
+      name: 'mock2',
+      location: 'location'
+    },
+    {
+      id: '3',
+      name: 'mock3',
+      location: 'location'
+    }
+  ]);
 }
 
-export const createResourceGroup = jest.fn((name: string) => Promise.resolve({ name }))
-
-
+export const createResourceGroup = jest.fn((name: string) => Promise.resolve({ name }));
