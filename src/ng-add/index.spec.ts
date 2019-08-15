@@ -28,8 +28,12 @@ describe('ng add @azure/ng-deploy', () => {
   const testRunner = new SchematicTestRunner('schematics', collectionPath);
 
   async function initAngularProject(): Promise<UnitTestTree> {
-    const appTree = await testRunner.runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions).toPromise();
-    return await testRunner.runExternalSchematicAsync('@schematics/angular', 'application', appOptions, appTree).toPromise();
+    const appTree = await testRunner
+      .runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions)
+      .toPromise();
+    return await testRunner
+      .runExternalSchematicAsync('@schematics/angular', 'application', appOptions, appTree)
+      .toPromise();
   }
 
   it('fails with a missing tree', async () => {
@@ -38,7 +42,7 @@ describe('ng add @azure/ng-deploy', () => {
 
   it('adds azure deploy to an existing project', async () => {
     let appTree = await initAngularProject();
-    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise()
+    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
     const angularJson = JSON.parse(appTree.readContent('/angular.json'));
 
     expect(angularJson.projects[appOptions.name].architect.deploy).toBeDefined();
@@ -50,15 +54,15 @@ describe('ng add @azure/ng-deploy', () => {
       hosting: [
         {
           app: {
-            configuration: "production",
-            path: "dist/test-app",
-            project: "test-app",
-            target: "build",
+            configuration: 'production',
+            path: 'dist/test-app',
+            project: 'test-app',
+            target: 'build'
           },
           azureHosting: {
-            account: "fakeStorageAccount",
-            resourceGroupName: "fake-resource-group",
-            subscription: "fake-subscription-1234",
+            account: 'fakeStorageAccount',
+            resourceGroupName: 'fake-resource-group',
+            subscription: 'fake-subscription-1234'
           }
         }
       ]
@@ -68,7 +72,7 @@ describe('ng add @azure/ng-deploy', () => {
   it('should overwrite existing hosting config', async () => {
     // Simulate existing app setup
     let appTree = await initAngularProject();
-    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise()
+    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
     appTree.overwrite('/azure.json', appTree.readContent('azure.json').replace(/fake/g, 'existing'));
 
     const confirmMock = confirm as jest.Mock;
@@ -76,7 +80,7 @@ describe('ng add @azure/ng-deploy', () => {
     confirmMock.mockImplementationOnce(() => Promise.resolve(true));
 
     // Run ng add @azure/deploy on existing project
-    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise()
+    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
 
     expect(confirm).toHaveBeenCalledTimes(1);
     expect(appTree.files).toContain('/azure.json');
@@ -86,15 +90,15 @@ describe('ng add @azure/ng-deploy', () => {
       hosting: [
         {
           app: {
-            configuration: "production",
-            path: "dist/test-app",
-            project: "test-app",
-            target: "build",
+            configuration: 'production',
+            path: 'dist/test-app',
+            project: 'test-app',
+            target: 'build'
           },
           azureHosting: {
-            account: "fakeStorageAccount",
-            resourceGroupName: "fake-resource-group",
-            subscription: "fake-subscription-1234",
+            account: 'fakeStorageAccount',
+            resourceGroupName: 'fake-resource-group',
+            subscription: 'fake-subscription-1234'
           }
         }
       ]
@@ -104,7 +108,7 @@ describe('ng add @azure/ng-deploy', () => {
   it('should keep existing hosting config', async () => {
     // Simulate existing app setup
     let appTree = await initAngularProject();
-    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise()
+    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
     appTree.overwrite('/azure.json', appTree.readContent('azure.json').replace(/fake/g, 'existing'));
 
     const confirmMock = confirm as jest.Mock;
@@ -112,7 +116,7 @@ describe('ng add @azure/ng-deploy', () => {
     confirmMock.mockImplementationOnce(() => Promise.resolve(false));
 
     // Run ng add @azure/deploy on existing project
-    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise()
+    appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
 
     expect(confirm).toHaveBeenCalledTimes(1);
     expect(appTree.files).toContain('/azure.json');
@@ -122,15 +126,15 @@ describe('ng add @azure/ng-deploy', () => {
       hosting: [
         {
           app: {
-            configuration: "production",
-            path: "dist/test-app",
-            project: "test-app",
-            target: "build",
+            configuration: 'production',
+            path: 'dist/test-app',
+            project: 'test-app',
+            target: 'build'
           },
           azureHosting: {
-            account: "existingStorageAccount",
-            resourceGroupName: "existing-resource-group",
-            subscription: "existing-subscription-1234",
+            account: 'existingStorageAccount',
+            resourceGroupName: 'existing-resource-group',
+            subscription: 'existing-subscription-1234'
           }
         }
       ]

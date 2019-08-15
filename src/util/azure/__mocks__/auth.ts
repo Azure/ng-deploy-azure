@@ -3,7 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-export const loginToAzure = () => Promise.resolve({
-  credentials: null,
-  subscriptions: []
-});
+export const loginToAzure = () =>
+  Promise.resolve({
+    credentials: null,
+    subscriptions: []
+  });
