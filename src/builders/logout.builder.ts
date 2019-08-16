@@ -6,9 +6,9 @@ import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/ar
 import { clearCreds } from '../util/azure/auth';
 
 export default createBuilder<any>(
-    async (builderConfig: any, context: BuilderContext): Promise<BuilderOutput> => {
-        await clearCreds();
-        context.logger.info('Cleared Azure credentials from cache.');
-        return { success: true };
-    }
+  async (builderConfig: any, context: BuilderContext): Promise<BuilderOutput> => {
+    await clearCreds();
+    context.logger.info('Cleared Azure credentials from cache.');
+    return { success: true };
+  }
 );

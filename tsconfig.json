@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "tsconfig",
-    "lib": [
-      "es2018",
-      "es2015",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "outDir": "out",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -24,17 +20,8 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/*/files/**/*",
-    "**/__mocks__/*",
-    "**/__tests__/*"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["**/*.spec.ts", "src/*/files/**/*", "**/__mocks__/*", "**/__tests__/*"]
 }

@@ -3,5 +3,4 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
- export const selectSubscription = () => Promise.resolve('fake-subscription-1234');
- 
+export const selectSubscription = () => Promise.resolve('fake-subscription-1234');
