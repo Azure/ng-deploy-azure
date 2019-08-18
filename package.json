@@ -16,6 +16,7 @@
     "format:check": "prettier -l \"./src/**/*.{json,ts}\"",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
+    "test:e2e": "./scripts/test.sh",
     "test:coverage": "jest --coverage",
     "copy:builders:json": "cp ./src/builders/*.json ./out/builders",
     "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add"
