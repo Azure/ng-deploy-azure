@@ -348,6 +348,7 @@ npm-debug.log*
 yarn-error.log*
 package-lock.json
 yarn.lock
+.env
 
 # Mac OSX Finder files.
 **/.DS_Store
