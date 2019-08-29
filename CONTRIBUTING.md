@@ -80,6 +80,28 @@ Testing is done with [Jest](https://jestjs.io/). To run the tests:
 npm run test:jest
 ```
 
+### Environments
+
+You can manage different environments by creating JSON files and setting the `NODE_ENV` variable accordingly.
+The default environment is `dev`, which uses the file `environments/environment.dev.json`.
+
+1. Create a JSON file under the folder `environments` with the name `environment.<environment name>.json`,
+   for example: `environment.prod.json`
+2. Add your variables to the JSON object within the file.
+3. Require the file `environment.json` (without the environment name) wherever needed, relatively to the `src` folder.
+   For example, in `src/ng-add/index.ts` use:
+
+```ts
+const environment = require('../environments/environment.json');
+```
+
+4. Set the `NODE_ENV` environment variable with the environment name before running `build` or `start`.
+   The default value is `dev`. For example:
+
+```sh
+NODE_ENV=prod npm run build
+```
+
 ### Commits message
 
 This project follows the [Conventional Commits convention](https://www.conventionalcommits.org), meaning that your commits message should be structured as follows:

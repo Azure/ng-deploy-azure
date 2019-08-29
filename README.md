@@ -10,7 +10,7 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the Angular CLI (v8 or greater) and create a new Angular project.
+1. Install the Angular CLI (v8.3.0 or greater) and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli
@@ -24,21 +24,17 @@
    ng add @azure/ng-deploy
    ```
 
-1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
-
-1. Build your Angular app.
-
-   ```sh
-   ng build --prod
-   ```
+   You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
 1. Deploy your project to Azure.
 
    ```sh
-   ng run hello-world:deploy
+   ng deploy
    ```
 
-You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
+   The project will be built in production mode and deployed to the storage account configured in the previous step.
+
+   You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
 ```sh
 see your deployed site at https://helloworldstatic52.z22.web.core.windows.net/
@@ -54,13 +50,13 @@ If you don't have an Azure subscription, [create your Azure free account from th
 
 ### Angular CLI <a name="angular-cli"></a>
 
-1. Install the Angular CLI (v8 or greater).
+1. Install the Angular CLI (v8.3.0 or greater).
 
    ```sh
    npm install -g @angular/cli
    ```
 
-1. Run `ng --version`, make sure you have angular CLI version v8.0.0 or greater.
+1. Run `ng --version`, make sure you have angular CLI version v8.3.0 or greater.
 
 1. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
 
@@ -100,17 +96,11 @@ The command will create the file `azure.json` with the deployment configuration 
 
 _Note: at the moment, the command will fail if an `azure.json` file already exists. Please remove the file before running the command._
 
-### deploy <a name="deploy"></a>
+### Deploy <a name="deploy"></a>
 
 You can deploy your application to the selected storage account by running the following command.
 
 ```sh
-ng run <project-name>:deploy
-```
-
-`ng-deploy` was recently released so now it's enough to only type:
-
-```
 ng deploy
 ```
 
@@ -126,7 +116,7 @@ To clear the cached credentials run:
 ng run <project-name>:azureLogout
 ```
 
-This command is available only after signing in to Azure.
+This command is available only after completing `ng add @azure/ng-deploy`.
 
 ## Data/Telemetry <a name="telemetry"></a>
 
@@ -137,14 +127,16 @@ Read Microsoft's [privacy statement](https://privacy.microsoft.com/en-gb/privacy
 To turn off telemetry, add the telemetry flag (`--telemetry` or `-t`) with the `false` value when running `ng add`, like this:
 
 ```sh
-ng add ng-deploy-azure --telemetry=false
+ng add @azure/ng-deploy --telemetry=false
 ```
 
 or
 
 ```sh
-ng add ng-deploy-azure -t=false
+ng add @azure/ng-deploy -t=false
 ```
+
+The configuration will be saved and applied when running `ng deploy`.
 
 ### Additional options <a name="options"></a>
 
