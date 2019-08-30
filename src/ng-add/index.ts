@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { confirm } from '../util/prompt/confirm';
-import { loginToAzure } from '../util/azure/auth';
-import { DeviceTokenCredentials } from '@azure/ms-rest-nodeauth';
+import { loginToAzure, loginToAzureWithCI } from '../util/azure/auth';
+import { DeviceTokenCredentials, AuthResponse } from '@azure/ms-rest-nodeauth';
 import { selectSubscription } from '../util/azure/subscription';
 import { getResourceGroup } from '../util/azure/resource-group';
 import { getAccount, getAzureStorageClient } from '../util/azure/account';
@@ -26,9 +26,27 @@ export function addDeployAzure(_options: AddOptions): Rule {
     const hostingConfig = azureJson ? getAzureHostingConfig(azureJson, project.projectName) : null;
 
     if (!hostingConfig || (await confirm(`Overwrite existing Azure config for ${project.projectName}?`))) {
-      const auth = await loginToAzure(_context.logger);
+      let auth = {} as AuthResponse;
+      let subscription = '';
+      if (process.env['CI']) {
+        _context.logger.info(`CI mode detected`);
+        auth = await loginToAzureWithCI(_context.logger);
+        // the AZURE_SUBSCRIPTION_ID variable is validated inside the loginToAzureWithCI
+        // so we have the guarrantee that the value is not empty.
+        subscription = process.env.AZURE_SUBSCRIPTION_ID as string;
+
+        // make sure the project property is set correctly
+        // this is needed when creating a storage account
+        _options = {
+          ..._options,
+          project: project.projectName
+        };
+      } else {
+        auth = await loginToAzure(_context.logger);
+        subscription = await selectSubscription(auth.subscriptions, _options, _context.logger);
+      }
+
       const credentials = auth.credentials as DeviceTokenCredentials;
-      const subscription = await selectSubscription(auth.subscriptions, _options, _context.logger);
       const resourceGroup = await getResourceGroup(credentials, subscription, _options, _context.logger);
       const client = getAzureStorageClient(credentials, subscription);
       const account = await getAccount(client, resourceGroup, _options, _context.logger);
