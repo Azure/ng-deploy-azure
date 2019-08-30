@@ -14,6 +14,7 @@
     "build:watch": "npm run build -s -- -w",
     "format": "npm run format:check -s -- --write",
     "format:check": "prettier -l \"./src/**/*.{json,ts}\"",
+    "test": "jest --verbose",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
     "test:e2e": "./scripts/test.sh",
@@ -43,6 +44,10 @@
     {
       "name": "Yohan Lasorsa",
       "url": "https://twitter.com/sinedied"
+    },
+    {
+      "name": "Wassim Chegham",
+      "url": "https://twitter.com/manekinekko"
     }
   ],
   "homepage": "https://github.com/Azure/ng-deploy-azure/",

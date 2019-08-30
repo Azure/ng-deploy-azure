@@ -13,6 +13,7 @@ jest.mock('../util/azure/subscription');
 jest.mock('../util/azure/resource-group');
 jest.mock('../util/azure/account');
 jest.mock('../util/prompt/confirm');
+import * as AuthModule from '../util/azure/auth';
 
 const collectionPath = require.resolve('../../collection.test.json');
 
@@ -138,6 +139,26 @@ describe('ng add @azure/ng-deploy', () => {
           }
         }
       ]
+    });
+  });
+  describe('when CI=1 is detected', () => {
+    it('should call loginToAzureWithCI()', async () => {
+      process.env.CI = '1';
+      const loginToAzureWithCI = jest.spyOn(AuthModule, 'loginToAzureWithCI');
+
+      let appTree = await initAngularProject();
+      appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
+
+      expect(loginToAzureWithCI).toHaveBeenCalled();
+    });
+    it('should NOT call loginToAzure()', async () => {
+      process.env.CI = '1';
+      const loginToAzure = jest.spyOn(AuthModule, 'loginToAzure');
+
+      let appTree = await initAngularProject();
+      appTree = await testRunner.runSchematicAsync('ng-add', {}, appTree).toPromise();
+
+      expect(loginToAzure).not.toHaveBeenCalled();
     });
   });
 });
