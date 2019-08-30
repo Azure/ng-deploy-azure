@@ -22,35 +22,54 @@ export async function clearCreds() {
 }
 
 export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
+  // a retry login helper function
+  const retryLogin = async (_auth: AuthResponse | null) => {
+    if (_auth === null) {
+      return null;
+    }
+    _auth = await interactiveLoginWithAuthResponse();
+    _auth.credentials = _auth.credentials as DeviceTokenCredentials;
+    globalConfig.set(AUTH, _auth);
+    return _auth;
+  };
+
+  // check old AUTH config from cache
   let auth = (await globalConfig.get(AUTH)) as AuthResponse | null;
 
-  if (auth && auth.credentials) {
-    const creds = auth.credentials as DeviceTokenCredentials;
-    const cache = new MemoryCache();
-    cache.add(creds.tokenCache._entries, () => {});
-
-    auth.credentials = new DeviceTokenCredentials(
-      creds.clientId,
-      creds.domain,
-      creds.username,
-      creds.tokenAudience,
-      new Environment(creds.environment),
-      cache
-    );
-
-    const token = await auth.credentials.getToken();
-    if (new Date(token.expiresOn).getTime() < Date.now()) {
-      logger.info(`Your stored credentials have expired; you'll have to log in again`);
-
-      auth = await interactiveLoginWithAuthResponse();
-      auth.credentials = auth.credentials as DeviceTokenCredentials;
-      globalConfig.set(AUTH, auth);
-    }
+  // if old AUTH config is not found, we trigger a new login flow
+  if (auth === null) {
+    auth = await retryLogin(auth);
   } else {
-    // user has to log in again
-    auth = await interactiveLoginWithAuthResponse();
-    globalConfig.set(AUTH, auth);
+    const creds = auth.credentials as DeviceTokenCredentials;
+    const { clientId, domain, username, tokenAudience, environment } = creds;
+
+    // if old AUTH config was found, we extract and check if the required fields are valid
+    if (creds && clientId && domain && username && tokenAudience && environment) {
+      const cache = new MemoryCache();
+      cache.add(creds.tokenCache._entries, () => {});
+
+      auth.credentials = new DeviceTokenCredentials(
+        clientId,
+        domain,
+        username,
+        tokenAudience,
+        new Environment(environment),
+        cache
+      );
+
+      const token = await creds.getToken();
+
+      // if extracted token has expiredm, we request a new login flow
+      if (new Date(token.expiresOn).getTime() < Date.now()) {
+        logger.info(`Your stored credentials have expired; you'll have to log in again`);
+
+        auth = await retryLogin(auth);
+      }
+    } else {
+      // if old AUTH config was found, but the required fields are NOT valid, we trigger a new login flow
+      auth = await retryLogin(auth);
+    }
   }
 
-  return auth;
+  return auth as AuthResponse;
 }
