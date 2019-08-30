@@ -2,7 +2,12 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { interactiveLoginWithAuthResponse, DeviceTokenCredentials, AuthResponse } from '@azure/ms-rest-nodeauth';
+import {
+  interactiveLoginWithAuthResponse,
+  DeviceTokenCredentials,
+  AuthResponse,
+  loginWithServicePrincipalSecretWithAuthResponse
+} from '@azure/ms-rest-nodeauth';
 import { MemoryCache } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
 import Conf from 'conf';
@@ -72,4 +77,42 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   }
 
   return auth as AuthResponse;
+}
+
+export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> {
+  let auth = null;
+
+  logger.info(`Checking for configuration...`);
+  const { CLIENT_ID, CLIENT_SECRET, TENANT_ID, AZURE_SUBSCRIPTION_ID } = process.env;
+
+  if (CLIENT_ID) {
+    logger.info(`Using CLIENT_ID=${CLIENT_ID}`);
+  } else {
+    throw new Error('CLIENT_ID is required in CI mode');
+  }
+
+  if (CLIENT_SECRET) {
+    logger.info(`Using CLIENT_SECRET=${CLIENT_SECRET.replace(/\w/g, '*')}`);
+  } else {
+    throw new Error('CLIENT_SECRET is required in CI mode');
+  }
+
+  if (TENANT_ID) {
+    logger.info(`Using TENANT_ID=${TENANT_ID}`);
+  } else {
+    throw new Error('TENANT_ID is required in CI mode');
+  }
+
+  if (AZURE_SUBSCRIPTION_ID) {
+    logger.info(`Using AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}`);
+  } else {
+    throw new Error('AZURE_SUBSCRIPTION_ID is required in CI mode');
+  }
+  logger.info(`Configuration OK`);
+
+  auth = await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
+
+  globalConfig.set(AUTH, auth);
+
+  return auth;
 }
