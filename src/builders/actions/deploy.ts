@@ -22,7 +22,8 @@ import { AzureHostingConfig } from '../../util/workspace/azure-json';
 import { StorageManagementClient } from '@azure/arm-storage';
 import { getAccountKey } from '../../util/azure/account';
 import chalk from 'chalk';
-import { loginToAzure } from '../../util/azure/auth';
+import { loginToAzure, loginToAzureWithCI } from '../../util/azure/auth';
+import { AuthResponse } from '@azure/ms-rest-nodeauth';
 
 export default async function deploy(
   context: BuilderContext,
@@ -47,7 +48,13 @@ export default async function deploy(
     );
   }
 
-  const auth = await loginToAzure(context.logger);
+  let auth = {} as AuthResponse;
+  if (process.env['CI']) {
+    context.logger.info(`CI mode detected`);
+    auth = await loginToAzureWithCI(context.logger);
+  } else {
+    auth = await loginToAzure(context.logger);
+  }
   const credentials = await auth.credentials;
 
   context.logger.info('Preparing for deployment');

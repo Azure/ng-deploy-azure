@@ -193,6 +193,63 @@ The requirements for these names are:
 
 If the validation fails, the tool will suggest a valid name. You will be able to select it or try another one.
 
+## Continuous Integration Mode <a name="ci"></a>
+
+When deploying from a CI environement, we switch to a non-interactive login process that requires you to provide [Service Principal][principal-service] crendetials as environment variables. A [Service Principal][principal-service] is an application within [Azure Active Directory][active-directory] that we can use to perform unattended resource and service level operations.
+
+### Creating a Service Principal <a name="sp"></a>
+
+In orther to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
+
+We recommend using the Azure CLI and running the following command:
+
+```sh
+AZURE_SUBSCRIPTION_ID="<a valid subscription ID>"
+SP_NAME='<a principal service name>'
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$AZURE_SUBSCRIPTION_ID" --name="$SP_NAME"
+```
+
+This command will output the following values:
+
+```json
+{
+  "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "displayName": "<the principal service name>",
+  "name": "http://<the principal service name>",
+  "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
+```
+
+You can use the Azure CLI to test that these values work and you can logging in:
+
+```sh
+az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+```
+
+### Configuring the environment variables
+
+We will need to set the following environment variables BEFORE adding `@azure/ng-deploy` or running the deploy command:
+
+- `CI`: this must be set to `1`. This will enable the CI mode.
+- `CLIENT_ID`: is the `appId` created above.
+- `CLIENT_SECRET`: is the `password` created above.
+- `TENANT_ID`: is the `tenant` created above.
+- `AZURE_SUBSCRIPTION_ID`: is your valid subscription ID.
+
+Here is a simple shell example:
+
+```sh
+export CI=1
+export CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+export CLIENT_SECRET='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+export TENANT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+export AZURE_SUBSCRIPTION_ID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+ng run <project-name>:deploy
+```
+
+> For security reasons, we highly recommend to create and provide these environment variables through a different method, eg. [Github Secrets][github-secrets] or [Azure DevOps Secrets][azure-devops-secrets].
+
 ## Reporting Security Issues <a name="issues"></a>
 
 Security issues and bugs should be reported privately, via email, to the Microsoft Security Response Center (MSRC) at [secure@microsoft.com](mailto:secure@microsoft.com). You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Further information, including the [MSRC PGP](https://technet.microsoft.com/en-us/security/dn606155/?WT.mc_id=ng_deploy_azure-github-cxa) key, can be found in the [Security TechCenter](https://technet.microsoft.com/en-us/security/default/?WT.mc_id=ng_deploy_azure-github-cxa).
@@ -215,3 +272,10 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
 - # Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
 - [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
+
+[azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa
+[active-directory]: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service]: https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service-portal]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa
+[azure-devops-secrets]: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa
+[github-secrets]: https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
