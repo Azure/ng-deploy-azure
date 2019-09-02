@@ -1,6 +1,6 @@
 {
   "name": "@azure/ng-deploy",
-  "version": "0.1.0-beta.4",
+  "version": "0.1.2",
   "main": "out/ng-add/index.js",
   "files": [
     "out/",
