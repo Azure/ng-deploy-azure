@@ -23,7 +23,7 @@
 1. Add `ng-deploy` to your project and create your Azure blob storage resources.
 
    ```sh
-   ng add @azure/ng-deploy@beta
+   ng add @azure/ng-deploy
    ```
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
