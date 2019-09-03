@@ -51,7 +51,13 @@ export async function getAccount(
 
   function getInitialAccountName() {
     const normalizedProjectNameArray = options.project.match(/[a-zA-Z0-9]/g);
-    const normalizedProjectName = normalizedProjectNameArray ? normalizedProjectNameArray.join('') : '';
+    let normalizedProjectName = normalizedProjectNameArray ? normalizedProjectNameArray.join('') : '';
+    
+    /* 
+    ensures project name + 'static' does not overshoot 24 characters (which is the Azure requirement on an account name)
+    additionally it needs to be lowercase (in case we have Angular project like e.g `ExampleApp`)
+    */
+    normalizedProjectName = normalizedProjectName.toLowerCase().substring(0, 18);
     return `${normalizedProjectName}static`;
   }
 
