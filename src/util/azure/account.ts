@@ -46,7 +46,8 @@ export async function getAccount(
   let needToCreateAccount = false;
 
   spinner.start('Fetching storage accounts');
-  const accounts = await client.storageAccounts.listByResourceGroup(resourceGroup.name);
+  // const accounts = await client.storageAccounts.listByResourceGroup(resourceGroup.name);
+  const accounts = await client.storageAccounts;
   spinner.stop();
 
   function getInitialAccountName() {
@@ -82,14 +83,16 @@ export async function getAccount(
 
     if (!options.manual) {
       // quickstart - create w/ default name
-      accountName = await generateDefaultAccountName(initialName);
-      needToCreateAccount = true;
-    } else {
-      // select from list or create new
-      const result = await filteredList(accounts as AccountDetails[], accountPromptOptions, newAccountPromptOptions);
-      needToCreateAccount = !!result.newAccount;
-      accountName = result.newAccount || result.account.name;
-    }
+  
+      accountName = yield generateDefaultAccountName(initialName);
+      const availableResult = yield client.storageAccounts.checkNameAvailability(accountName);
+
+      if (!availableResult.nameAvailable) {
+        logger.info(`Account ${accountName} already exist on subscription`);
+        logger.info(`Using existing account ${accountName}`);
+      } else {
+        needToCreateAccount = true;
+      }
   }
 
   if (needToCreateAccount) {
