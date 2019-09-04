@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { StorageManagementClient } from '@azure/arm-storage';
-import { filteredList, ListItem, newItemPrompt } from '../prompt/list';
+import { newItemPrompt } from '../prompt/list';
 import { Aborter, ServiceURL, SharedKeyCredential } from '@azure/storage-blob';
 import { DeviceTokenCredentials } from '@azure/ms-rest-nodeauth';
 import { AddOptions, Logger } from '../shared/types';
@@ -11,17 +11,6 @@ import { SchematicsException } from '@angular-devkit/schematics';
 import { ResourceGroup } from './resource-group';
 import { generateName } from '../prompt/name-generator';
 import { spinner } from '../prompt/spinner';
-
-interface AccountDetails extends ListItem {
-  id: string;
-  name: string;
-  location: string;
-}
-
-const accountPromptOptions = {
-  id: 'account',
-  message: 'Under which storage account should we put this static site?'
-};
 
 const newAccountPromptOptions = {
   id: 'newAccount',
@@ -65,8 +54,9 @@ export async function getAccount(
   newAccountPromptOptions.validate = validateAccountName;
 
   if (accountName) {
-    const account = accounts.find(acc => acc.name === accountName);
-    if (!!account) {
+    const result = await accounts.checkNameAvailability(accountName);
+
+    if (!result.nameAvailable) {
       // account exists
       // TODO: check account configuration
       logger.info(`Using existing account ${accountName}`);
@@ -83,7 +73,7 @@ export async function getAccount(
 
     if (!options.manual) {
       // quickstart - create w/ default name
-  
+
       accountName = await generateDefaultAccountName(initialName);
       const availableResult = await client.storageAccounts.checkNameAvailability(accountName);
 
@@ -93,6 +83,7 @@ export async function getAccount(
       } else {
         needToCreateAccount = true;
       }
+    }
   }
 
   if (needToCreateAccount) {
