@@ -78,8 +78,7 @@ export async function getAccount(
       const availableResult = await client.storageAccounts.checkNameAvailability(accountName);
 
       if (!availableResult.nameAvailable) {
-        logger.info(`Account ${accountName} already exist on subscription`);
-        logger.info(`Using existing account ${accountName}`);
+        logger.info(`Account ${accountName} already exist on subscription, using existing account`);
       } else {
         needToCreateAccount = true;
       }
