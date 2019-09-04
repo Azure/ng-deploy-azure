@@ -84,8 +84,8 @@ export async function getAccount(
     if (!options.manual) {
       // quickstart - create w/ default name
   
-      accountName = yield generateDefaultAccountName(initialName);
-      const availableResult = yield client.storageAccounts.checkNameAvailability(accountName);
+      accountName = await generateDefaultAccountName(initialName);
+      const availableResult = await client.storageAccounts.checkNameAvailability(accountName);
 
       if (!availableResult.nameAvailable) {
         logger.info(`Account ${accountName} already exist on subscription`);
