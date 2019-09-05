@@ -65,7 +65,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   if (auth === null) {
     auth = await retryLogin(auth);
   } else {
-    const creds = auth.credentials as DeviceTokenCredentials;
+    let creds = auth.credentials as DeviceTokenCredentials;
     const { clientId, domain, username, tokenAudience, environment } = creds;
 
     // if old AUTH config was found, we extract and check if the required fields are valid
@@ -81,6 +81,17 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
         new Environment(environment),
         cache
       );
+
+      /* 
+       seems the token gets corrupt when it's stored in cache, we only get properties
+       back and no functions, right now we are forcing the user to login every time,
+       WE NEED TO FIX THIS ASAP
+      */
+      if (!creds.getToken) {
+        console.log('retrying login');
+        auth = await retryLogin(auth);
+        creds = auth.credentials as DeviceTokenCredentials;
+      }
 
       const token = await creds.getToken();
       // if extracted token has expiredm, we request a new login flow
