@@ -26,13 +26,33 @@ export async function clearCreds() {
   return globalConfig.set(AUTH, null);
 }
 
+//
+//
+/**
+ * safe guard if things get wrong and we don't get an AUTH object.
+ * we exit if:
+ * - auth is not valid
+ * - auth.credentials doesn't exist
+ * - auth.credentials.getToken is not a function
+ */
+function safeCheckForValidAuthSignature(auth: AuthResponse) {
+  const isEmpty = (o: object) => Object.entries(o).length === 0;
+  if (
+    auth === null ||
+    (auth && isEmpty(auth.credentials)) ||
+    (auth && auth.credentials && typeof auth.credentials.getToken !== 'function')
+  ) {
+    throw new Error(
+      `There was an issue during the login process.\nMake sure to delete "${globalConfig.path}" and try again.`
+    );
+  }
+}
+
 export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   // a retry login helper function
   const retryLogin = async (_auth: AuthResponse | null) => {
-    if (_auth === null) {
-      return null;
-    }
     _auth = await interactiveLoginWithAuthResponse();
+    safeCheckForValidAuthSignature(_auth);
     _auth.credentials = _auth.credentials as DeviceTokenCredentials;
     globalConfig.set(AUTH, _auth);
     return _auth;
@@ -63,7 +83,6 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
       );
 
       const token = await creds.getToken();
-
       // if extracted token has expiredm, we request a new login flow
       if (new Date(token.expiresOn).getTime() < Date.now()) {
         logger.info(`Your stored credentials have expired; you'll have to log in again`);
