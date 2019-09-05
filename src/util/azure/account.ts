@@ -106,10 +106,11 @@ function checkNameAvailability(client: StorageManagementClient, warn?: boolean) 
     const availability = await client.storageAccounts.checkNameAvailability(account);
     if (!availability.nameAvailable && warn) {
       spinner.fail(availability.message || 'chosen name is not available');
+      return false;
     } else {
       spinner.stop();
+      return true;
     }
-    return !!availability.nameAvailable;
   };
 }
 
