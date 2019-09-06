@@ -73,6 +73,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
       const cache = new MemoryCache();
       cache.add(creds.tokenCache._entries, () => {});
 
+      // we need to regenerate a proper object from the saved credentials
       auth.credentials = new DeviceTokenCredentials(
         clientId,
         domain,
@@ -82,8 +83,8 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
         cache
       );
 
-      const token = await creds.getToken();
-      // if extracted token has expiredm, we request a new login flow
+      const token = await auth.credentials.getToken();
+      // if extracted token has expired, we request a new login flow
       if (new Date(token.expiresOn).getTime() < Date.now()) {
         logger.info(`Your stored credentials have expired; you'll have to log in again`);
 
@@ -130,8 +131,6 @@ export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> 
   logger.info(`Configuration OK`);
 
   auth = await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
-
-  globalConfig.set(AUTH, auth);
 
   return auth;
 }
