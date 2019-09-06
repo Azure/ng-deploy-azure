@@ -132,7 +132,5 @@ export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> 
 
   auth = await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
 
-  globalConfig.set(AUTH, auth);
-
   return auth;
 }
