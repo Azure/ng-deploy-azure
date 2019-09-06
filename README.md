@@ -1,10 +1,8 @@
 # @azure/ng-deploy
 
 [![npm version](https://badge.fury.io/js/%40azure%2Fng-deploy.svg)](https://www.npmjs.com/package/@azure/ng-deploy)
-
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
-
 [![Build Status](https://dev.azure.com/devrel/chris-noring-test/_apis/build/status/Azure.ng-deploy-azure?branchName=master)](https://dev.azure.com/devrel/chris-noring-test/_build/latest?definitionId=19&branchName=master)
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
 
 **Deploy Angular apps to Azure using the Angular CLI**
 
@@ -12,10 +10,10 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater) and create a new Angular project.
+1. Install the Angular CLI (v8 or greater) and create a new Angular project.
 
    ```sh
-   npm install -g @angular/cli@next
+   npm install -g @angular/cli
    ng new hello-world --defaults
    cd hello-world
    ```
@@ -56,22 +54,20 @@ If you don't have an Azure subscription, [create your Azure free account from th
 
 ### Angular CLI <a name="angular-cli"></a>
 
-1. Install the next version of the Angular CLI (v8.0.0-beta.18 or greater).
+1. Install the Angular CLI (v8 or greater).
 
    ```sh
-   npm install -g @angular/cli@next
+   npm install -g @angular/cli
    ```
 
-   > As long as version 8 is in RC, use `@next` instead of `@latest`
-
-1. Run `ng --version`, make sure you have angular CLI version v8.0.0-beta.18 or greater.
+1. Run `ng --version`, make sure you have angular CLI version v8.0.0 or greater.
 
 1. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
 
 1. Update your project using the command:
 
    ```sh
-   ng update @angular/cli @angular/core --next=true
+   ng update @angular/cli @angular/core
    ```
 
 ### An Angular App Created by the Angular CLI
@@ -270,12 +266,10 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 
 - Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa)
 - Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
-- # Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
-- [John Papa](https://github.com/johnpapa) for guiding through and supporting the development, publish and release.
-
-[azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa
-[active-directory]: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa
-[principal-service]: https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa
-[principal-service-portal]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa
-[azure-devops-secrets]: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa
-[github-secrets]: https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
+- Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
+- [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa)
+- [active-directory](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa)
+- [principal-service](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa)
+- [principal-service-portal](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa)
+- [azure-devops-secrets](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa)
+- [github-secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)
