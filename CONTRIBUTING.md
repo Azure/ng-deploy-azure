@@ -80,6 +80,29 @@ Testing is done with [Jest](https://jestjs.io/). To run the tests:
 npm run test:jest
 ```
 
+### Commits message
+
+This project follows the [Conventional Commits convention](https://www.conventionalcommits.org), meaning that your commits message should be structured as follows:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+The commit should contains the following structural elements:
+
+- `fix:` a commit of the type fix patches a bug in your codebase (this correlates with PATCH in semantic versioning).
+- `feat:` a commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in semantic versioning).
+- `BREAKING CHANGE:` a commit that has the text `BREAKING CHANGE:` at the beginning of its optional body or footer section introduces a breaking API change (correlating with MAJOR in semantic versioning). A BREAKING CHANGE can be part of commits of any type.
+- Others: commit types other than `fix:` and `feat:` are allowed such as `chore:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`.
+
+If you are new to this convention you can use `npm run commit` instead of `git commit` and follow the guided instructions.
+
+### Pull requests
+
 When you submit a pull request, a CLA-bot will automatically determine whether you need
 to provide a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the
 instructions provided by the bot. You will only need to do this once across all repositories using our CLA.
