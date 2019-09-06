@@ -9,6 +9,7 @@
   ],
   "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
+    "commit": "git-cz",
     "build": "tsc -p tsconfig.json && npm run copy:builders:json && npm run copy:ngadd:json && tsc -p tsconfig.json",
     "start": "npm run build:watch",
     "build:watch": "npm run build -s -- -w",
@@ -56,7 +57,7 @@
     "url": "git@github.com:Azure/ng-deploy-azure.git"
   },
   "bugs": {
-    "url": "https://github.com/Azure/ng-deploy-azure/"
+    "url": "https://github.com/Azure/ng-deploy-azure/issues"
   },
   "engines": {
     "node": ">=8"
@@ -87,6 +88,8 @@
     "typescript": "~3.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "@schematics/angular": "^8.2.0",
     "@types/conf": "^2.1.0",
     "@types/glob": "^7.1.1",
@@ -95,6 +98,8 @@
     "@types/mime-types": "^2.1.0",
     "@types/node": "^10.12.18",
     "@types/progress": "^2.0.3",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.0.2",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
@@ -117,7 +122,18 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
   }
 }
