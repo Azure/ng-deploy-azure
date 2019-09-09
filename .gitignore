@@ -336,6 +336,7 @@ src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
 lib/**/*
+*.tgz
 
 # IDEs
 .idea/
@@ -344,6 +345,8 @@ jsconfig.json
 
 # Misc
 node_modules/
+environments/*
+!environments/environment.dev.json
 npm-debug.log*
 yarn-error.log*
 package-lock.json

@@ -17,6 +17,7 @@ export class AngularWorkspace {
   target: string;
   configuration: string;
   path: string;
+  telemetry: boolean;
 
   constructor(tree: Tree, options: any) {
     this.tree = tree;
@@ -30,6 +31,7 @@ export class AngularWorkspace {
     this.path = this.project.architect
       ? this.project.architect[this.target].options.outputPath
       : `dist/${this.projectName}`;
+    this.telemetry = !(options.telemetry === false);
   }
 
   getPath() {
@@ -121,7 +123,8 @@ export class AngularWorkspace {
       options: {
         host: 'Azure',
         type: 'static',
-        config: 'azure.json'
+        config: 'azure.json',
+        telemetry: this.telemetry
       }
     };
 

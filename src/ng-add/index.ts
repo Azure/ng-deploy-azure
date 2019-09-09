@@ -12,8 +12,15 @@ import { getAccount, getAzureStorageClient } from '../util/azure/account';
 import { AngularWorkspace } from '../util/workspace/angular-json';
 import { generateAzureJson, readAzureJson, getAzureHostingConfig } from '../util/workspace/azure-json';
 import { AddOptions } from '../util/shared/types';
+import { startInsights } from '../util/azure/app-insights';
+
+const environment = require('../environments/environment.json');
 
 export function ngAdd(_options: AddOptions): Rule {
+  if (_options.telemetry) {
+    startInsights(environment.insightsKey, environment.production);
+  }
+
   return (tree: Tree, _context: SchematicContext) => {
     return chain([addDeployAzure(_options)])(tree, _context);
   };
