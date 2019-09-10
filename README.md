@@ -108,6 +108,12 @@ You can deploy your application to the selected storage account by running the f
 ng run <project-name>:deploy
 ```
 
+`ng-deploy` was recently released so now it's enough to only type:
+
+```
+ng deploy
+```
+
 If the build target (`dist/<project-name>` folder) is empty, the project will be built with the production option (similar to running `ng build --prod`).
 
 You may be asked to sign in to Azure again. Then, the project will be deployed to the storage account specified in `azure.json`. The link to the deployed app will be presented.
