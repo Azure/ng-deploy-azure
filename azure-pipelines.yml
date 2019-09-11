@@ -5,19 +5,6 @@
 
 strategy:
   matrix:
-    linux-node8:
-      imageName: 'ubuntu-latest'
-      nodeVersion: '8.x'
-    linux-node10:
-      imageName: 'ubuntu-latest'
-      nodeVersion: '10.x'
-    mac-node8:
-      imageName: 'macos-latest'
-      nodeVersion: '8.x'
-    mac-node10:
-      imageName: 'macos-latest'
-      nodeVersion: '10.x'
-    windows-node8:
       imageName: 'windows-latest'
       nodeVersion: '8.x'
     windows-node10:
