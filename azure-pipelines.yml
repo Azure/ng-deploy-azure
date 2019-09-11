@@ -41,6 +41,9 @@ steps:
       versionSpec: $(nodeVersion)
     displayName: 'Install Node.js'
 
+  - script: npm install
+    displayName: 'Install dependencies'
+
   - script: npm run getenv:mkdir
     displayName: 'mkdir'
 
