@@ -5,6 +5,7 @@
 
 strategy:
   matrix:
+    windows-node8:
       imageName: 'windows-latest'
       nodeVersion: '8.x'
     windows-node10:
