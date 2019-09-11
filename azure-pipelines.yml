@@ -32,6 +32,9 @@ steps:
   - script: npm install
     displayName: 'Install dependencies'
 
+  - script: FOO=bar npm run getenv:get
+    displayName: 'echo variable'
+
   - script: npm run getenv:esetget
     displayName: 'echo variable'
 
