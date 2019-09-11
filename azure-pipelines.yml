@@ -47,6 +47,12 @@ steps:
   - script: npm run getenv:mkdirp
     displayName: 'mkdir with -p'
 
+  - script: npm run getenv:mkdirp2
+    displayName: 'mkdir with -p existing folder'
+
+  - script: npm run getenv:mkdirr
+    displayName: 'mkdir with -p recursive'
+
   - script: npm run getenv:echo
     displayName: 'echo variable'
 
