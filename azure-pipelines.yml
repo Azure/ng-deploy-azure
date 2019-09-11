@@ -30,26 +30,34 @@ pool:
 trigger:
   branches:
     include:
-    - master
-    - greenkeeper/*
+      - master
+      - greenkeeper/*
 pr:
-- master
+  - master
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: $(nodeVersion)
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodeVersion)
+    displayName: 'Install Node.js'
 
-- script: npm install && npm install -g @angular/cli
-  displayName: 'Install dependencies'
+  - script: npm run getenv:mkdir
+    displayName: 'mkdir'
 
-- script: npm run build
-  displayName: 'Compile TypeScript and Build'
+  - script: npm run getenv:mkdirp
+    displayName: 'mkdir with -p'
 
-- script: npm run test:jest
-  displayName: 'Run jest unit tests'
+  - script: npm run getenv:echo
+    displayName: 'echo variable'
 
+  - script: npm run getenv:echodef
+    displayName: 'echo default variable'
+
+  - script: npm run getenv:echoset
+    displayName: 'echo set variable'
+
+  - script: npm run getenv:copy
+    displayName: 'copy env file'
 # TODO: manage login to @azure/ng-deploy and az cli before enabling
 #- script: bash -c "bash -c \"scripts/test.sh\""
 #  displayName: 'Run e2e tests'

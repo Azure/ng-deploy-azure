@@ -9,14 +9,10 @@ import { join } from 'path';
 import { readFileSync } from 'fs';
 import { AzureHostingConfig, AzureJSON } from '../util/workspace/azure-json';
 import deploy from './actions/deploy';
-import { startInsights } from '../util/azure/app-insights';
-
-const environment = require('../environments/environment.json');
 
 export default createBuilder<any>(
   async (builderConfig: any, context: BuilderContext): Promise<BuilderOutput> => {
     if (builderConfig.telemetry) {
-      startInsights(environment.insightsKey, environment.production);
     }
 
     const root = normalize(context.workspaceRoot);

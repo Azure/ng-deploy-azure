@@ -10,6 +10,12 @@
   "description": "@azure/ng-deploy - Deploy Angular apps to Azure using the Angular CLI",
   "scripts": {
     "commit": "git-cz",
+    "getenv:mkdir": "mkdir out/env",
+    "getenv:mkdirp": "mkdir -p out/env1",
+    "getenv:echo": "echo hi",
+    "getenv:echodef": "echo ${HELLO:-planet}",
+    "getenv:echoset": "HELLO=world echo $HELLO",
+    "getenv:copy": "cp ./environments/environment.dev.json .",
     "getenv": "mkdir -p out/environments && cp ./environments/environment.${NODE_ENV:-dev}.json ./out/environments/environment.json",
     "copy": "npm run copy:builders:json && npm run copy:ngadd:json",
     "build": "tsc -p tsconfig.json && npm run getenv && npm run copy && tsc -p tsconfig.json",
@@ -121,17 +127,6 @@
   "prettier": {
     "singleQuote": true,
     "printWidth": 120
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "config": {
     "commitizen": {
