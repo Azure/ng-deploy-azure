@@ -52,7 +52,7 @@ export async function getResourceGroup(
   spinner.stop();
   let result;
 
-  const initialName = options.project + '-static-deploy';
+  const initialName = `ngdeploy-${options.project}-cxa`;
   const defaultResourceGroupName = await resourceGroupNameGenerator(initialName, resourceGroupList);
 
   if (!options.manual) {
