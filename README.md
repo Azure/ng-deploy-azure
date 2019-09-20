@@ -197,11 +197,11 @@ If the validation fails, the tool will suggest a valid name. You will be able to
 
 ## Continuous Integration Mode <a name="ci"></a>
 
-When deploying from a CI environement, we switch to a non-interactive login process that requires you to provide [Service Principal][principal-service] crendetials as environment variables. A [Service Principal][principal-service] is an application within [Azure Active Directory][active-directory] that we can use to perform unattended resource and service level operations.
+When deploying from a CI environement, we switch to a non-interactive login process that requires you to provide [Service Principal][principal-service] credentials as environment variables. A [Service Principal][principal-service] is an application within [Azure Active Directory][active-directory] that we can use to perform unattended resource and service level operations.
 
 ### Creating a Service Principal <a name="sp"></a>
 
-In orther to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
+In other to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
 
 We recommend using the Azure CLI and running the following command:
 
