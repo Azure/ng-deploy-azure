@@ -24,6 +24,9 @@ export default createBuilder<any>(
     const workspaceRoot = getSystemPath(workspace.root);
 
     const azureProject = getAzureHostingConfig(workspaceRoot, context.target.project, builderConfig.config);
+    if (!azureProject) {
+      throw new Error(`Configuration for project ${context.target.project} was not found in azure.json.`);
+    }
 
     try {
       await deploy(context, join(workspaceRoot, project.root), azureProject);
@@ -42,6 +45,9 @@ export function getAzureHostingConfig(
   azureConfigFile: string
 ): AzureHostingConfig | undefined {
   const azureJson: AzureJSON = JSON.parse(readFileSync(join(projectRoot, azureConfigFile), 'UTF-8'));
+  if (!azureJson) {
+    throw new Error(`Cannot read configuration file "${azureConfigFile}"`);
+  }
   const projects = azureJson.hosting;
   return projects.find(project => project.app.project === target);
 }

@@ -30,6 +30,10 @@ export default async function deploy(
   projectRoot: string,
   azureHostingConfig?: AzureHostingConfig
 ) {
+  if (!context.target) {
+    throw new Error('Cannot run target deploy. Context is missing a target object.');
+  }
+
   if (!azureHostingConfig) {
     throw new Error('Cannot find Azure hosting config for your app in azure.json');
   }
@@ -39,13 +43,9 @@ export default async function deploy(
     !azureHostingConfig.azureHosting ||
     !azureHostingConfig.azureHosting.subscription ||
     !azureHostingConfig.azureHosting.resourceGroupName ||
-    !azureHostingConfig.azureHosting.account ||
-    !azureHostingConfig.app.project ||
-    !azureHostingConfig.app.target
+    !azureHostingConfig.azureHosting.account
   ) {
-    throw new Error(
-      'Azure hosting config is missing some details. Please run "ng add ng-deploy-azure" and select a storage account.'
-    );
+    throw new Error('Azure hosting config is missing some details. Please run "ng add @azure/ng-deploy"');
   }
 
   let auth = {} as AuthResponse;
@@ -59,16 +59,10 @@ export default async function deploy(
 
   context.logger.info('Preparing for deployment');
 
-  const filesPath = path.join(projectRoot, azureHostingConfig.app.path);
-  let files = await getFiles(context, filesPath, projectRoot);
+  let filesPath = null;
 
-  if (files.length === 0) {
+  if (azureHostingConfig.app.target) {
     // build the project
-
-    context.logger.info(`The folder ${azureHostingConfig.app.path} is empty.`);
-    if (!context.target) {
-      throw new Error('Cannot execute the target');
-    }
 
     const target: Target = {
       target: azureHostingConfig.app.target,
@@ -80,12 +74,32 @@ export default async function deploy(
     context.logger.info(`📦 Running "${azureHostingConfig.app.target}" on "${context.target.project}"`);
 
     const run = await context.scheduleTarget(target);
-    await run.result;
-
-    files = await getFiles(context, filesPath, projectRoot);
-    if (files.length === 0) {
-      throw new Error('Target did not produce any files, or the path is incorrect.');
+    const targetResult = await run.result;
+    if (!targetResult.success) {
+      throw new Error(`Target failed: ${targetResult.error}`);
     }
+    filesPath = targetResult.outputPath as string;
+
+    if (!filesPath) {
+      if (azureHostingConfig.app.path) {
+        context.logger.warn(`Target was executed but does not provide a result file path.
+        Fetching files from the path configured in azure.json: ${azureHostingConfig.app.path}`);
+        filesPath = path.join(projectRoot, azureHostingConfig.app.path);
+        console.log(filesPath);
+      }
+    }
+  } else if (azureHostingConfig.app.path) {
+    context.logger.info(`Fetching files from the path configured in azure.json: ${azureHostingConfig.app.path}`);
+    filesPath = path.join(projectRoot, azureHostingConfig.app.path);
+  }
+
+  if (!filesPath) {
+    throw new Error('No path is configured for the files to deploy.');
+  }
+
+  const files = await getFiles(context, filesPath, projectRoot);
+  if (files.length === 0) {
+    throw new Error('Target did not produce any files, or the path is incorrect.');
   }
 
   const client = new StorageManagementClient(credentials, azureHostingConfig.azureHosting.subscription);

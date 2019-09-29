@@ -10,7 +10,7 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the Angular CLI (v8 or greater) and create a new Angular project.
+1. Install the Angular CLI (v8.3.0 or greater) and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli
@@ -26,17 +26,13 @@
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Build your Angular app.
-
-   ```sh
-   ng build --prod
-   ```
-
 1. Deploy your project to Azure.
 
    ```sh
    ng run hello-world:deploy
    ```
+
+   The project will be built with the production configuration (like running `ng build --prod`).
 
 You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
@@ -105,16 +101,13 @@ _Note: at the moment, the command will fail if an `azure.json` file already exis
 You can deploy your application to the selected storage account by running the following command.
 
 ```sh
-ng run <project-name>:deploy
-```
-
-`ng-deploy` was recently released so now it's enough to only type:
-
-```
 ng deploy
 ```
 
-If the build target (`dist/<project-name>` folder) is empty, the project will be built with the production option (similar to running `ng build --prod`).
+By default, the project will be built with the production option (similar to running `ng build --prod`).
+The files will be taken from the path configured in the `build` command in `angular.json`.
+
+Follow [these instructions](#build-target) if you want to set up a different path and/or build target.
 
 You may be asked to sign in to Azure again. Then, the project will be deployed to the storage account specified in `azure.json`. The link to the deployed app will be presented.
 
@@ -194,6 +187,62 @@ The requirements for these names are:
 - unique across Azure
 
 If the validation fails, the tool will suggest a valid name. You will be able to select it or try another one.
+
+#### Changing the build target <a name="build-target"></a>
+
+By default, the project is built using the `build` target with the `production` configuration,
+as configured in `angular.json`.
+
+You can change this by editing the `target` and/or `configuration` in `azure.json` (after completing `@azure/ng-add`).
+Change it to a target that exists for the project in `angular.json` and optionally with one of its configurations.
+Make sure the target specifies an `outputPath`.
+
+For example, if one of the targets under `projects.hello-world.architect` in `angular.json` is `special-build`
+with an optional configuration named `staging`, you can specify it as the target this way:
+
+```json
+// azure.json
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "hello-world",
+        "target": "special-build",
+        "configuration": "staging"
+      },
+      "azureHosting": {
+        ...
+      }
+    }
+  ]
+}
+```
+
+Another option is to skip build, and deploy directly from a specific location.
+To do this, delete the `target` and `configuration` from `azure.json`,
+and provide a `path` with a value relative to the root of the project.
+
+For example, if the files you with to deploy exist in `public/static/hello-world`,
+change the configuration this way:
+
+```json
+// azure.json
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "hello-world",
+        "path": "public/static/hello-world"
+      },
+      "azureHosting": {
+        ...
+      }
+    }
+  ]
+}
+```
+
+In the future we'll add an option to change this through the command line.
 
 ## Continuous Integration Mode <a name="ci"></a>
 
