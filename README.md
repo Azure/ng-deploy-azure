@@ -328,3 +328,11 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - [principal-service-portal](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa)
 - [azure-devops-secrets](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa)
 - [github-secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)
+
+
+[azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa
+[active-directory]: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service]: https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service-portal]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa
+[azure-devops-secrets]: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa
+[github-secrets]: https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
