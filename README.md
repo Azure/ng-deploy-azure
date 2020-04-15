@@ -250,7 +250,7 @@ When deploying from a CI environement, we switch to a non-interactive login proc
 
 ### Creating a Service Principal <a name="sp"></a>
 
-In other to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
+In order to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
 
 We recommend using the Azure CLI and running the following command:
 
@@ -272,7 +272,7 @@ This command will output the following values:
 }
 ```
 
-You can use the Azure CLI to test that these values work and you can logging in:
+You can use the Azure CLI to test that these values work and you can log in:
 
 ```sh
 az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
