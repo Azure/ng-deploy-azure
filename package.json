@@ -21,7 +21,8 @@
     "test:e2e": "./scripts/test.sh",
     "test:coverage": "jest --coverage",
     "copy:builders:json": "cp ./src/builders/*.json ./out/builders",
-    "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add"
+    "copy:ngadd:json": "cp ./src/ng-add/*.json ./out/ng-add",
+    "release": "release-it"
   },
   "keywords": [
     "schematics",
@@ -90,6 +91,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@release-it/conventional-changelog": "^1.1.0",
     "@schematics/angular": "^8.2.0",
     "@types/conf": "^2.1.0",
     "@types/glob": "^7.1.1",
@@ -104,6 +106,7 @@
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "release-it": "^12.6.1",
     "schematics-utilities": "^1.1.2",
     "ts-jest": "^24.0.2",
     "typescript": "~3.4.0"
@@ -134,6 +137,23 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
+    }
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    },
+    "hooks": {
+      "before:init": [
+        "npm run build",
+        "npm run test"
+      ]
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
     }
   }
 }
