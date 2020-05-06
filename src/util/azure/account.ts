@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { StorageManagementClient } from '@azure/arm-storage';
 import { newItemPrompt } from '../prompt/list';
-import { Aborter, ServiceURL, SharedKeyCredential } from '@azure/storage-blob';
+import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob';
 import { DeviceTokenCredentials } from '@azure/ms-rest-nodeauth';
 import { AddOptions, Logger } from '../shared/types';
 import { SchematicsException } from '@angular-devkit/schematics';
@@ -17,8 +17,8 @@ const newAccountPromptOptions = {
   message: 'Enter a name for the new storage account:',
   name: 'Create a new storage account',
   default: '',
-  defaultGenerator: (name: string) => Promise.resolve(''),
-  validate: (name: string) => Promise.resolve(true)
+  defaultGenerator: (_name: string) => Promise.resolve(''),
+  validate: (_name: string) => Promise.resolve(true)
 };
 
 export function getAzureStorageClient(credentials: DeviceTokenCredentials, subscriptionId: string) {
@@ -35,7 +35,6 @@ export async function getAccount(
   let needToCreateAccount = false;
 
   spinner.start('Fetching storage accounts');
-  // const accounts = await client.storageAccounts.listByResourceGroup(resourceGroup.name);
   const accounts = await client.storageAccounts;
   spinner.stop();
 
@@ -120,16 +119,6 @@ function accountNameGenerator(client: StorageManagementClient) {
   };
 }
 
-export async function setStaticSiteToPublic(serviceURL: ServiceURL) {
-  await serviceURL.setProperties(Aborter.timeout(30 * 60 * 60 * 1000), {
-    staticWebsite: {
-      enabled: true,
-      indexDocument: 'index.html',
-      errorDocument404Path: 'index.html'
-    }
-  });
-}
-
 export async function getAccountKey(account: any, client: StorageManagementClient, resourceGroup: any) {
   const accountKeysRes = await client.storageAccounts.listKeys(resourceGroup, account);
   const accountKey = (accountKeysRes.keys || []).filter(key => (key.permissions || '').toUpperCase() === 'FULL')[0];
@@ -161,20 +150,24 @@ export async function createAccount(
   spinner.succeed();
 
   spinner.start('Creating web container');
-  await createWebContainer(client, resourceGroupName, account);
-  spinner.succeed();
-  const pipeline = ServiceURL.newPipeline(new SharedKeyCredential(account, accountKey));
-  const serviceURL = new ServiceURL(`https://${account}.blob.core.windows.net`, pipeline);
-  spinner.start('Setting container to be publicly available static site');
-  await setStaticSiteToPublic(serviceURL);
+  const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
+  await createWebContainer(client, resourceGroupName, account, sharedKeyCredential);
   spinner.succeed();
 }
 
-export async function createWebContainer(client: StorageManagementClient, resourceGroup: any, account: any) {
-  await client.blobContainers.create(resourceGroup, account, '$web', {
-    publicAccess: 'Container',
-    metadata: {
-      cli: 'ng-deploy-azure'
+export async function createWebContainer(
+  client: StorageManagementClient,
+  resourceGroup: any,
+  account: any,
+  sharedKeyCredential: StorageSharedKeyCredential
+) {
+  const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net`, sharedKeyCredential);
+
+  await blobServiceClient.setProperties({
+    staticWebsite: {
+      enabled: true,
+      indexDocument: 'index.html',
+      errorDocument404Path: 'index.html'
     }
   });
 }

@@ -8,12 +8,14 @@ import {
   AuthResponse,
   loginWithServicePrincipalSecretWithAuthResponse
 } from '@azure/ms-rest-nodeauth';
-import { MemoryCache } from 'adal-node';
+import { MemoryCache, TokenResponse } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
 import Conf from 'conf';
 import { Logger } from '../shared/types';
 
 const AUTH = 'auth';
+
+type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
 
 export const globalConfig = new Conf<string | AuthResponse | null>({
   defaults: {
@@ -26,8 +28,6 @@ export async function clearCreds() {
   return globalConfig.set(AUTH, null);
 }
 
-//
-//
 /**
  * safe guard if things get wrong and we don't get an AUTH object.
  * we exit if:
@@ -53,7 +53,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   const retryLogin = async (_auth: AuthResponse | null) => {
     _auth = await interactiveLoginWithAuthResponse();
     safeCheckForValidAuthSignature(_auth);
-    _auth.credentials = _auth.credentials as DeviceTokenCredentials;
+    _auth.credentials = _auth.credentials as TokenCredentials;
     globalConfig.set(AUTH, _auth);
     return _auth;
   };
@@ -65,7 +65,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   if (auth === null) {
     auth = await retryLogin(auth);
   } else {
-    const creds = auth.credentials as DeviceTokenCredentials;
+    const creds = auth.credentials as TokenCredentials;
     const { clientId, domain, username, tokenAudience, environment } = creds;
 
     // if old AUTH config was found, we extract and check if the required fields are valid
@@ -100,8 +100,6 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
 }
 
 export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> {
-  let auth = null;
-
   logger.info(`Checking for configuration...`);
   const { CLIENT_ID, CLIENT_SECRET, TENANT_ID, AZURE_SUBSCRIPTION_ID } = process.env;
 
@@ -130,7 +128,5 @@ export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> 
   }
   logger.info(`Configuration OK`);
 
-  auth = await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
-
-  return auth;
+  return await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
 }
