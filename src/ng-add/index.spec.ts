@@ -20,7 +20,7 @@ const collectionPath = require.resolve('../../collection.test.json');
 const workspaceOptions: WorkspaceOptions = {
   name: 'workspace',
   newProjectRoot: 'tests',
-  version: '9.0.0'
+  version: '9.1.4'
 };
 
 const appOptions: ApplicationOptions = { name: 'test-app' };
