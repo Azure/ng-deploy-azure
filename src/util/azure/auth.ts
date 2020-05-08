@@ -12,10 +12,11 @@ import { MemoryCache, TokenResponse } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
 import Conf from 'conf';
 import { Logger } from '../shared/types';
+import { buildTenantList } from '@azure/ms-rest-nodeauth/dist/lib/subscriptionManagement/subscriptionUtils';
 
 const AUTH = 'auth';
 
-type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
+export type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
 
 export const globalConfig = new Conf<string | AuthResponse | null>({
   defaults: {
@@ -43,16 +44,22 @@ function safeCheckForValidAuthSignature(auth: AuthResponse) {
     (auth && auth.credentials && typeof auth.credentials.getToken !== 'function')
   ) {
     throw new Error(
-      `There was an issue during the login process.\nMake sure to delete "${globalConfig.path}" and try again.`
+      `There was an issue during the login process.\n
+      Make sure to delete "${globalConfig.path}" and try again.`
     );
   }
 }
 
 export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   // a retry login helper function
-  const retryLogin = async (_auth: AuthResponse | null) => {
-    _auth = await interactiveLoginWithAuthResponse();
+  const retryLogin = async (_auth: AuthResponse | null, tenant: string = ''): Promise<AuthResponse> => {
+    _auth = await interactiveLoginWithAuthResponse(!!tenant ? { domain: tenant } : {});
     safeCheckForValidAuthSignature(_auth);
+    if (!tenant && (!_auth.subscriptions || _auth.subscriptions.length === 0)) {
+      logger.info(`Due to an issue regarding authentication with the wrong tenant, we ask you to log in again.`);
+      const tenants = await buildTenantList(_auth.credentials);
+      _auth = await retryLogin(_auth, tenants[0]);
+    }
     _auth.credentials = _auth.credentials as TokenCredentials;
     globalConfig.set(AUTH, _auth);
     return _auth;
