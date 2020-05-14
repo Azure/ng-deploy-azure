@@ -7,19 +7,19 @@ strategy:
   matrix:
     linux-node8:
       imageName: 'ubuntu-latest'
-      nodeVersion: '8.x'
+      nodeVersion: '12.x'
     linux-node10:
       imageName: 'ubuntu-latest'
       nodeVersion: '10.x'
     mac-node8:
       imageName: 'macos-latest'
-      nodeVersion: '8.x'
+      nodeVersion: '12.x'
     mac-node10:
       imageName: 'macos-latest'
       nodeVersion: '10.x'
     windows-node8:
       imageName: 'windows-latest'
-      nodeVersion: '8.x'
+      nodeVersion: '12.x'
     windows-node10:
       imageName: 'windows-latest'
       nodeVersion: '10.x'
@@ -30,26 +30,25 @@ pool:
 trigger:
   branches:
     include:
-    - master
-    - greenkeeper/*
+      - master
+      - greenkeeper/*
 pr:
-- master
+  - master
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: $(nodeVersion)
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodeVersion)
+    displayName: 'Install Node.js'
 
-- script: npm install && npm install -g @angular/cli
-  displayName: 'Install dependencies'
+  - script: npm install && npm install -g @angular/cli
+    displayName: 'Install dependencies'
 
-- script: npm run build
-  displayName: 'Compile TypeScript and Build'
+  - script: npm run build
+    displayName: 'Compile TypeScript and Build'
 
-- script: npm run test:jest
-  displayName: 'Run jest unit tests'
-
+  - script: npm run test:jest
+    displayName: 'Run jest unit tests'
 # TODO: manage login to @azure/ng-deploy and az cli before enabling
 #- script: bash -c "bash -c \"scripts/test.sh\""
 #  displayName: 'Run e2e tests'

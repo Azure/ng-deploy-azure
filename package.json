@@ -60,7 +60,7 @@
     "url": "https://github.com/Azure/ng-deploy-azure/issues"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "license": "MIT",
   "builders": "./builders.json",
