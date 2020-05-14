@@ -15,7 +15,7 @@ const SUBNAME = 'name';
 
 const optionsMock = <AddOptions>{
   subscriptionId: SUBID,
-  subscriptionName: SUBNAME
+  subscriptionName: SUBNAME,
 };
 
 // const optionsMockEmpty = <AddOptions>{};
@@ -25,7 +25,7 @@ const loggerMock = {
   info: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
-  fatal: jest.fn()
+  fatal: jest.fn(),
 };
 
 // TODO check loggerMack for calls and args, need to reset mock before every test though
@@ -49,8 +49,8 @@ describe('subscription', () => {
     const subs = <Array<LinkedSubscription>>[
       {
         id: '456',
-        name: 'a sub'
-      }
+        name: 'a sub',
+      },
     ];
 
     selectSubscription(subs, optionsMock, loggerMock);
@@ -85,7 +85,10 @@ describe('subscription', () => {
   test('should prompt user to select a subscription if more than one subscription', async () => {
     const expected = 'subMock'; // check inquirer.js at __mocks__ at root level
 
-    const subs = <Array<LinkedSubscription>>[{ id: 'abc', name: 'subMock' }, { id: '123', name: 'sub2' }];
+    const subs = <Array<LinkedSubscription>>[
+      { id: 'abc', name: 'subMock' },
+      { id: '123', name: 'sub2' },
+    ];
     const actual = await selectSubscription(subs, optionsMock, loggerMock);
 
     // TODO verify that prompt is being invoked

@@ -47,11 +47,11 @@ export function generateAzureJson(tree: Tree, appDeployConfig: AppDeployConfig, 
 }
 
 export function getAzureHostingConfig(azureJson: AzureJSON, projectName: string): AzureHostingConfig | undefined {
-  return azureJson.hosting.find(config => config.app.project === projectName);
+  return azureJson.hosting.find((config) => config.app.project === projectName);
 }
 
 function getAzureHostingConfigIndex(azureJson: AzureJSON, project: string): number {
-  return azureJson.hosting.findIndex(config => config.app.project === project);
+  return azureJson.hosting.findIndex((config) => config.app.project === project);
 }
 
 const overwriteIfExists = (tree: Tree, path: string, content: string) => {
@@ -66,7 +66,7 @@ const stringifyFormatted = (obj: any) => JSON.stringify(obj, null, 2);
 
 function emptyAzureJson() {
   return {
-    hosting: []
+    hosting: [],
   };
 }
 
@@ -85,6 +85,6 @@ function safeReadJSON(path: string, tree: Tree) {
 function generateHostingConfig(appDeployConfig: AppDeployConfig, azureDeployConfig: AzureDeployConfig) {
   return {
     app: appDeployConfig,
-    azureHosting: azureDeployConfig
+    azureHosting: azureDeployConfig,
   };
 }

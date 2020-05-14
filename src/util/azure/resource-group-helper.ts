@@ -29,7 +29,7 @@ export async function createResourceGroup(
   // TODO: throws an error here if the subscription is wrong
   const client = new ResourceManagementClient(creds, subscription);
   const resourceGroupRes = await client.resourceGroups.createOrUpdate(name, {
-    location
+    location,
   });
   return resourceGroupRes;
 }

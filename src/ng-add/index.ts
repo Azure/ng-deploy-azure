@@ -39,7 +39,7 @@ export function addDeployAzure(_options: AddOptions): Rule {
         // this is needed when creating a storage account
         _options = {
           ..._options,
-          project: project.projectName
+          project: project.projectName,
         };
       } else {
         auth = await loginToAzure(_context.logger);
@@ -55,13 +55,13 @@ export function addDeployAzure(_options: AddOptions): Rule {
         project: project.projectName,
         target: project.target,
         configuration: project.configuration,
-        path: project.path
+        path: project.path,
       };
 
       const azureDeployConfig = {
         subscription,
         resourceGroupName: resourceGroup.name,
-        account
+        account,
       };
 
       // TODO: log url for account at Azure portal

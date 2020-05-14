@@ -5,12 +5,12 @@ const loggerMock = {
   info: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
-  fatal: jest.fn()
+  fatal: jest.fn(),
 };
 
 const AuthResponseMock = {
   credentials: {},
-  subscriptions: []
+  subscriptions: [],
 };
 
 jest.mock('conf');
@@ -18,7 +18,7 @@ jest.mock('@azure/ms-rest-nodeauth', () => {
   return {
     loginWithServicePrincipalSecretWithAuthResponse: jest.fn(() => {
       return AuthResponseMock;
-    })
+    }),
   };
 });
 

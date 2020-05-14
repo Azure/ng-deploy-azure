@@ -53,5 +53,5 @@ export function getAzureHostingConfig(
     throw new Error(`Cannot read configuration file "${azureConfigFile}"`);
   }
   const projects = azureJson.hosting;
-  return projects.find(project => project.app.project === target);
+  return projects.find((project) => project.app.project === target);
 }

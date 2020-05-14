@@ -18,7 +18,7 @@ const newAccountPromptOptions = {
   name: 'Create a new storage account',
   default: '',
   defaultGenerator: (_name: string) => Promise.resolve(''),
-  validate: (_name: string) => Promise.resolve(true)
+  validate: (_name: string) => Promise.resolve(true),
 };
 
 export function getAzureStorageClient(credentials: DeviceTokenCredentials, subscriptionId: string) {
@@ -121,7 +121,7 @@ function accountNameGenerator(client: StorageManagementClient) {
 
 export async function getAccountKey(account: any, client: StorageManagementClient, resourceGroup: any) {
   const accountKeysRes = await client.storageAccounts.listKeys(resourceGroup, account);
-  const accountKey = (accountKeysRes.keys || []).filter(key => (key.permissions || '').toUpperCase() === 'FULL')[0];
+  const accountKey = (accountKeysRes.keys || []).filter((key) => (key.permissions || '').toUpperCase() === 'FULL')[0];
   if (!accountKey || !accountKey.value) {
     process.exit(1);
     return '';
@@ -138,7 +138,7 @@ export async function createAccount(
   const poller = await client.storageAccounts.beginCreate(resourceGroupName, account, {
     kind: 'StorageV2',
     location,
-    sku: { name: 'Standard_LRS' }
+    sku: { name: 'Standard_LRS' },
   });
   await poller.pollUntilFinished();
 
@@ -167,7 +167,7 @@ export async function createWebContainer(
     staticWebsite: {
       enabled: true,
       indexDocument: 'index.html',
-      errorDocument404Path: 'index.html'
-    }
+      errorDocument404Path: 'index.html',
+    },
   });
 }

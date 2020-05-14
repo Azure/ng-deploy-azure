@@ -7,5 +7,5 @@ export const getResourceGroup = () =>
   Promise.resolve({
     id: '4321',
     name: 'fake-resource-group',
-    location: 'westus'
+    location: 'westus',
   });
