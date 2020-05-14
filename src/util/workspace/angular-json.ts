@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { experimental, JsonParseMode, parseJson } from '@angular-devkit/core';
-import { WorkspaceProject } from 'schematics-utilities';
+import { WorkspaceProject, ProjectType } from 'schematics-utilities';
 import { WorkspaceTool } from '@angular-devkit/core/src/experimental/workspace';
 
 export class AngularWorkspace {
@@ -24,7 +24,7 @@ export class AngularWorkspace {
     this.content = this.getContent();
     this.schema = this.getWorkspace();
     this.projectName = this.getProjectName(options);
-    this.project = this.getProject(options);
+    this.project = this.getProject(options) as WorkspaceProject<ProjectType.Application>;
     this.target = 'build'; // TODO allow configuration of other options
     this.configuration = 'production';
     this.path = this.project.architect
@@ -34,7 +34,7 @@ export class AngularWorkspace {
 
   getPath() {
     const possibleFiles = ['/angular.json', '/.angular.json'];
-    const path = possibleFiles.filter(file => this.tree.exists(file))[0];
+    const path = possibleFiles.filter((file) => this.tree.exists(file))[0];
     return path;
   }
 
@@ -109,7 +109,7 @@ export class AngularWorkspace {
 
   addLogoutArchitect() {
     this.getArchitect()['azureLogout'] = {
-      builder: '@azure/ng-deploy:logout'
+      builder: '@azure/ng-deploy:logout',
     };
 
     this.updateTree();
@@ -121,8 +121,8 @@ export class AngularWorkspace {
       options: {
         host: 'Azure',
         type: 'static',
-        config: 'azure.json'
-      }
+        config: 'azure.json',
+      },
     };
 
     this.updateTree();

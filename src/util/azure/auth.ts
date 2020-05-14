@@ -6,11 +6,11 @@ import {
   interactiveLoginWithAuthResponse,
   DeviceTokenCredentials,
   AuthResponse,
-  loginWithServicePrincipalSecretWithAuthResponse
+  loginWithServicePrincipalSecretWithAuthResponse,
 } from '@azure/ms-rest-nodeauth';
 import { MemoryCache, TokenResponse } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
-import Conf from 'conf';
+import * as Conf from 'conf';
 import { Logger } from '../shared/types';
 import { buildTenantList } from '@azure/ms-rest-nodeauth/dist/lib/subscriptionManagement/subscriptionUtils';
 
@@ -18,11 +18,15 @@ const AUTH = 'auth';
 
 export type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
 
-export const globalConfig = new Conf<string | AuthResponse | null>({
+interface GlobalConfig {
+  auth: AuthResponse | null;
+}
+
+export const globalConfig = new Conf<GlobalConfig>({
   defaults: {
-    auth: null
+    auth: null,
   },
-  configName: 'ng-azure'
+  configName: 'ng-azure',
 });
 
 export async function clearCreds() {
