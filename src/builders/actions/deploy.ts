@@ -13,7 +13,7 @@ import { BuilderContext, Target } from '@angular-devkit/architect';
 import { AzureHostingConfig } from '../../util/workspace/azure-json';
 import { StorageManagementClient } from '@azure/arm-storage';
 import { getAccountKey } from '../../util/azure/account';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { loginToAzure, loginToAzureWithCI } from '../../util/azure/auth';
 import { AuthResponse } from '@azure/ms-rest-nodeauth';
 
@@ -58,7 +58,7 @@ export default async function deploy(
 
     const target: Target = {
       target: azureHostingConfig.app.target,
-      project: context.target.project
+      project: context.target.project,
     };
     if (azureHostingConfig.app.configuration) {
       target.configuration = azureHostingConfig.app.configuration;
@@ -124,7 +124,7 @@ function getFiles(context: BuilderContext, filesPath: string, _projectRoot: stri
   return glob.sync(`**`, {
     ignore: ['.git', '.azez.json'],
     cwd: filesPath,
-    nodir: true
+    nodir: true,
   });
 }
 
@@ -138,12 +138,12 @@ export async function uploadFilesToAzure(
   const containerClient = serviceClient.getContainerClient('$web');
 
   const bar = new ProgressBar('[:bar] :current/:total files uploaded | :percent done | :elapseds | eta: :etas', {
-    total: files.length
+    total: files.length,
   });
 
   bar.tick(0);
 
-  await promiseLimit(5).map(files, async function(file: string) {
+  await promiseLimit(5).map(files, async function (file: string) {
     const blockBlobClient = containerClient.getBlockBlobClient(file);
 
     const blobContentType = lookup(file) || '';
@@ -152,9 +152,9 @@ export async function uploadFilesToAzure(
     await blockBlobClient.uploadStream(fs.createReadStream(path.join(filesPath, file)), 4 * 1024 * 1024, 20, {
       blobHTTPHeaders: {
         blobContentType,
-        blobContentEncoding
+        blobContentEncoding,
       },
-      onProgress: _progress => bar.tick(1)
+      onProgress: (_progress) => bar.tick(1),
     });
   });
 
