@@ -20,7 +20,7 @@ const collectionPath = require.resolve('../../collection.test.json');
 const workspaceOptions: WorkspaceOptions = {
   name: 'workspace',
   newProjectRoot: 'tests',
-  version: '8.0.0'
+  version: '9.1.4',
 };
 
 const appOptions: ApplicationOptions = { name: 'test-app' };
@@ -58,15 +58,15 @@ describe('ng add @azure/ng-deploy', () => {
             configuration: 'production',
             path: 'dist/test-app',
             project: 'test-app',
-            target: 'build'
+            target: 'build',
           },
           azureHosting: {
             account: 'fakeStorageAccount',
             resourceGroupName: 'fake-resource-group',
-            subscription: 'fake-subscription-1234'
-          }
-        }
-      ]
+            subscription: 'fake-subscription-1234',
+          },
+        },
+      ],
     });
   });
 
@@ -94,15 +94,15 @@ describe('ng add @azure/ng-deploy', () => {
             configuration: 'production',
             path: 'dist/test-app',
             project: 'test-app',
-            target: 'build'
+            target: 'build',
           },
           azureHosting: {
             account: 'fakeStorageAccount',
             resourceGroupName: 'fake-resource-group',
-            subscription: 'fake-subscription-1234'
-          }
-        }
-      ]
+            subscription: 'fake-subscription-1234',
+          },
+        },
+      ],
     });
   });
 
@@ -130,15 +130,15 @@ describe('ng add @azure/ng-deploy', () => {
             configuration: 'production',
             path: 'dist/test-app',
             project: 'test-app',
-            target: 'build'
+            target: 'build',
           },
           azureHosting: {
             account: 'existingStorageAccount',
             resourceGroupName: 'existing-resource-group',
-            subscription: 'existing-subscription-1234'
-          }
-        }
-      ]
+            subscription: 'existing-subscription-1234',
+          },
+        },
+      ],
     });
   });
   describe('when CI=1 is detected', () => {

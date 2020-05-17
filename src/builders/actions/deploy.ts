@@ -6,22 +6,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as glob from 'glob';
 import { lookup, charset } from 'mime-types';
-import {
-  uploadStreamToBlockBlob,
-  Aborter,
-  BlobURL,
-  BlockBlobURL,
-  ContainerURL,
-  ServiceURL,
-  SharedKeyCredential
-} from '@azure/storage-blob';
+import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob';
 import * as promiseLimit from 'promise-limit';
 import * as ProgressBar from 'progress';
 import { BuilderContext, Target } from '@angular-devkit/architect';
 import { AzureHostingConfig } from '../../util/workspace/azure-json';
 import { StorageManagementClient } from '@azure/arm-storage';
 import { getAccountKey } from '../../util/azure/account';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { loginToAzure, loginToAzureWithCI } from '../../util/azure/auth';
 import { AuthResponse } from '@azure/ms-rest-nodeauth';
 
@@ -66,7 +58,7 @@ export default async function deploy(
 
     const target: Target = {
       target: azureHostingConfig.app.target,
-      project: context.target.project
+      project: context.target.project,
     };
     if (azureHostingConfig.app.configuration) {
       target.configuration = azureHostingConfig.app.configuration;
@@ -109,14 +101,14 @@ export default async function deploy(
     azureHostingConfig.azureHosting.resourceGroupName
   );
 
-  const pipeline = ServiceURL.newPipeline(new SharedKeyCredential(azureHostingConfig.azureHosting.account, accountKey));
+  const sharedKeyCredential = new StorageSharedKeyCredential(azureHostingConfig.azureHosting.account, accountKey);
 
-  const serviceURL = new ServiceURL(
+  const blobServiceClient = new BlobServiceClient(
     `https://${azureHostingConfig.azureHosting.account}.blob.core.windows.net`,
-    pipeline
+    sharedKeyCredential
   );
 
-  await uploadFilesToAzure(serviceURL, context, filesPath, files);
+  await uploadFilesToAzure(blobServiceClient, context, filesPath, files);
 
   const accountProps = await client.storageAccounts.getProperties(
     azureHostingConfig.azureHosting.resourceGroupName,
@@ -128,51 +120,42 @@ export default async function deploy(
   // TODO: log url for account at Azure portal
 }
 
-function getFiles(context: BuilderContext, filesPath: string, projectRoot: string) {
+function getFiles(context: BuilderContext, filesPath: string, _projectRoot: string) {
   return glob.sync(`**`, {
     ignore: ['.git', '.azez.json'],
     cwd: filesPath,
-    nodir: true
+    nodir: true,
   });
 }
 
 export async function uploadFilesToAzure(
-  serviceURL: ServiceURL,
+  serviceClient: BlobServiceClient,
   context: BuilderContext,
   filesPath: string,
   files: string[]
 ): Promise<void> {
   context.logger.info('preparing static deploy');
-  const containerURL = ContainerURL.fromServiceURL(serviceURL, '$web');
+  const containerClient = serviceClient.getContainerClient('$web');
 
   const bar = new ProgressBar('[:bar] :current/:total files uploaded | :percent done | :elapseds | eta: :etas', {
-    total: files.length
+    total: files.length,
   });
 
   bar.tick(0);
 
-  await promiseLimit(5).map(files, async function(file: string) {
-    const blobURL = BlobURL.fromContainerURL(containerURL, file);
-    const blockBlobURL = BlockBlobURL.fromBlobURL(blobURL);
+  await promiseLimit(5).map(files, async function (file: string) {
+    const blockBlobClient = containerClient.getBlockBlobClient(file);
 
     const blobContentType = lookup(file) || '';
     const blobContentEncoding = charset(blobContentType) || '';
 
-    await uploadStreamToBlockBlob(
-      Aborter.timeout(30 * 60 * 60 * 1000),
-      fs.createReadStream(path.join(filesPath, file)),
-      blockBlobURL,
-      4 * 1024 * 1024,
-      20,
-      {
-        blobHTTPHeaders: {
-          blobContentType,
-          blobContentEncoding
-        }
-      }
-    );
-
-    bar.tick(1);
+    await blockBlobClient.uploadStream(fs.createReadStream(path.join(filesPath, file)), 4 * 1024 * 1024, 20, {
+      blobHTTPHeaders: {
+        blobContentType,
+        blobContentEncoding,
+      },
+      onProgress: (_progress) => bar.tick(1),
+    });
   });
 
   bar.terminate();

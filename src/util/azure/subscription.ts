@@ -21,7 +21,7 @@ export async function selectSubscription(
     }
 
     const subProvided = !!options.subscriptionId || !!options.subscriptionName;
-    const foundSub = subs.find(sub => {
+    const foundSub = subs.find((sub) => {
       // TODO: provided id and name might be of different subscriptions or one with typo
       return sub.id === options.subscriptionId || sub.name === options.subscriptionName;
     });
@@ -42,12 +42,12 @@ export async function selectSubscription(
         {
           type: 'list',
           name: 'sub',
-          choices: subs.map(choice => ({
+          choices: subs.map((choice) => ({
             name: `${choice.name} – ${choice.id}`,
-            value: choice.id
+            value: choice.id,
           })),
-          message: 'Under which subscription should we put this static site?'
-        }
+          message: 'Under which subscription should we put this static site?',
+        },
       ]);
       return sub;
     }

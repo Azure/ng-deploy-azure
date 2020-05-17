@@ -10,14 +10,14 @@ const RESOURCE_GROUP = 'GROUP';
 
 const credentials = <DeviceTokenCredentials>{};
 const options = <AddOptions>{
-  resourceGroup: RESOURCE_GROUP
+  resourceGroup: RESOURCE_GROUP,
 };
 const logger = {
   debug: jest.fn(),
   info: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
-  fatal: jest.fn()
+  fatal: jest.fn(),
 };
 
 jest.mock('./resource-group-helper');
@@ -46,7 +46,7 @@ describe('resource group', () => {
     const existingMockResourceGroup = 'mock2';
     const optionsWithMatch = {
       ...options,
-      resourceGroup: existingMockResourceGroup
+      resourceGroup: existingMockResourceGroup,
     };
     const resourceGroup: ResourceGroup = await getResourceGroup(credentials, subscription, optionsWithMatch, logger);
 
