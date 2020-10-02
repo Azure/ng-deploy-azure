@@ -220,7 +220,7 @@ npm run test:jest
 ## Reporting Security Issues <a name="issues"></a>
 
 Security issues and bugs should be reported privately, via email, to the Microsoft Security
-Response Center (MSRC) at [secure@microsoft.com](mailto:secure@microsoft.com). You should
+Response Center (MSRC) at [secure@https://microsoft.com:80/?WT.mc_id=ngdeployazure-github-shboyer](mailto:secure@https://microsoft.com:80/?WT.mc_id=ngdeployazure-github-shboyer). You should
 receive a response within 24 hours. If for some reason you do not, please follow up via
 email to ensure we received your original message. Further information, including the
 [MSRC PGP](https://technet.microsoft.com/en-us/security/dn606155/?WT.mc_id=ng_deploy_azure-github-cxa) key, can be found in
