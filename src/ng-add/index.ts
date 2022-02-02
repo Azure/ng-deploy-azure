@@ -68,7 +68,7 @@ export function addDeployAzure(_options: AddOptions): Rule {
       generateAzureJson(tree, appDeployConfig, azureDeployConfig);
     }
 
-    project.addLogoutArchitect();
-    project.addDeployArchitect();
+    await project.addLogoutArchitect();
+    // project.addDeployArchitect();
   };
 }

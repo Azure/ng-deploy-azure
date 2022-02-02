@@ -3,128 +3,166 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { experimental, JsonParseMode, parseJson } from '@angular-devkit/core';
-import { WorkspaceProject, ProjectType } from 'schematics-utilities';
-import { WorkspaceTool } from '@angular-devkit/core/src/experimental/workspace';
+// import { JsonParseMode, parseJson } from '@angular-devkit/core';
+import { virtualFs, workspaces } from '@angular-devkit/core';
+import { ProjectDefinition } from '@angular-devkit/core/src/workspace/definitions';
+// import { WorkspaceProject, ProjectType, WorkspaceSchema, WorkspaceTargets, getWorkspace } from 'schematics-utilities';
+// import { parseJson } from '@angular-devkit/core/src/json/parser';
+// import { WorkspaceDefinition } from '@angular-devkit/core';
+// import { WorkspaceTargets } from 'schematics-utilities/dist/angular/workspace-models';
+// import { WorkspaceTool } from '@angular-devkit/core/src/experimental/workspace';
+
+export function createHost(tree: Tree): workspaces.WorkspaceHost {
+  return {
+    async readFile(path: string): Promise<string> {
+      const data = tree.read(path);
+      if (!data) {
+        throw new SchematicsException('File not found.');
+      }
+      return virtualFs.fileBufferToString(data);
+    },
+    async writeFile(path: string, data: string): Promise<void> {
+      return tree.overwrite(path, data);
+    },
+    async isDirectory(path: string): Promise<boolean> {
+      return !tree.exists(path) && tree.getDir(path).subfiles.length > 0;
+    },
+    async isFile(path: string): Promise<boolean> {
+      return tree.exists(path);
+    },
+  };
+}
+
+export async function getWorkspace(tree: Tree, host: workspaces.WorkspaceHost, path = '/') {
+  // const host = createHost(tree);
+  const { workspace } = await workspaces.readWorkspace(path, host);
+  return workspace;
+}
 
 export class AngularWorkspace {
   tree: Tree;
   workspacePath: string;
-  schema: experimental.workspace.WorkspaceSchema;
+  workspace: workspaces.WorkspaceDefinition;
+  host: workspaces.WorkspaceHost;
+  schema: workspaces.WorkspaceDefinition;
   content: string;
   projectName: string;
-  project: WorkspaceProject;
+  project: ProjectDefinition;
   target: string;
   configuration: string;
   path: string;
 
   constructor(tree: Tree, options: any) {
     this.tree = tree;
-    this.workspacePath = this.getPath();
-    this.content = this.getContent();
-    this.schema = this.getWorkspace();
-    this.projectName = this.getProjectName(options);
-    this.project = this.getProject(options) as WorkspaceProject<ProjectType.Application>;
+    // this.workspace = await getWorkspace(tree);
+    // this.workspacePath = this.getPath();
+    // this.content = this.getContent();
+    // this.schema = this.getWorkspace();
+    // this.projectName = this.getProjectName(options);
+    // this.project = this.getProject(options); //as WorkspaceProject<ProjectType.Application>;
     this.target = 'build'; // TODO allow configuration of other options
     this.configuration = 'production';
-    this.path = this.project.architect
+    /*    this.path = this.project.architect
       ? this.project.architect[this.target].options.outputPath
-      : `dist/${this.projectName}`;
+      : `dist/${ this.projectName }`;*/
   }
 
-  getPath() {
-    const possibleFiles = ['/angular.json', '/.angular.json'];
-    const path = possibleFiles.filter((file) => this.tree.exists(file))[0];
-    return path;
+  async getWorkspaceData(options: any) {
+    this.host = createHost(this.tree);
+    this.workspace = await getWorkspace(this.tree, this.host);
+    this.projectName = this.getProjectName(options);
+    this.project = this.getProject(options);
+    this.path = this.getOutputPath(options);
   }
 
-  getContent() {
-    const configBuffer = this.tree.read(this.workspacePath);
-    if (configBuffer === null) {
-      throw new SchematicsException(`Could not find angular.json`);
-    }
-    return configBuffer.toString();
-  }
-
-  getWorkspace() {
-    let schema: experimental.workspace.WorkspaceSchema;
+  async getWorkspace() {
+    // let schema: WorkspaceDefinition;
+    const host = createHost(this.tree);
+    const { workspace } = await workspaces.readWorkspace('/', host);
+    // let schema = workspace.projects.get('build')
     try {
-      schema = (parseJson(this.content, JsonParseMode.Loose) as {}) as experimental.workspace.WorkspaceSchema;
+      // const host = createHost(tree);
+      // schema = await workspaces.readWorkspace('/', host);
+      // schema = (parseJson(this.content, JsonParseMode.Loose) as {}) as WorkspaceSchema;
     } catch (e) {
       throw new SchematicsException(`Could not parse angular.json: ` + e.message);
     }
 
-    return schema;
+    return workspace;
   }
 
   getProjectName(options: any) {
     let projectName = options.project;
 
-    if (!projectName) {
-      if (this.schema.defaultProject) {
-        projectName = this.schema.defaultProject;
-      } else {
-        throw new SchematicsException('No project selected and no default project in the workspace');
-      }
+    if (!options.project && typeof this.workspace.extensions.defaultProject === 'string') {
+      options.project = this.workspace.extensions.defaultProject;
     }
 
+    if (!projectName) {
+    } else {
+      throw new SchematicsException('No project selected and no default project name available in the workspace.');
+    }
     return projectName;
   }
 
   getProject(options: any) {
-    const project = this.schema.projects[this.projectName];
+    const project = this.workspace.projects.get(this.projectName);
     if (!project) {
-      throw new SchematicsException('Project is not defined in this workspace');
+      throw new SchematicsException(`Project "${this.projectName}" is not defined in this workspace`);
     }
 
-    if (project.projectType !== 'application') {
-      throw new SchematicsException(`Deploy requires a project type of "application" in angular.json`);
-    }
-
-    if (
-      !project.architect ||
-      !project.architect.build ||
-      !project.architect.build.options ||
-      !project.architect.build.options.outputPath
-    ) {
-      throw new SchematicsException(
-        `Cannot read the output path (architect.build.options.outputPath) of project "${this.projectName}" in angular.json`
-      );
+    if (project.extensions.projectType !== 'application') {
+      throw new SchematicsException(`Cannot set up deployment for a project that is not of type "application"`);
     }
 
     return project;
   }
 
-  getArchitect(): WorkspaceTool {
-    if (!this || !this.project || !this.project.architect) {
+  getOutputPath(options: any): string {
+    const buildTarget = this.project.targets.get('build');
+    if (!buildTarget) {
+      throw new SchematicsException(`Build target does not exist.`);
+    }
+
+    const outputPath =
+      typeof buildTarget.options?.outputPath === 'string'
+        ? buildTarget?.options?.outputPath
+        : `dist/${this.projectName}`;
+    return outputPath;
+  }
+
+  getArchitect() {
+    /*if (!this || !this.project || !this.project.architect) {
       throw new SchematicsException('An error has occurred while retrieving project configuration.');
     }
 
-    return this.project.architect;
+    return this.project.architect;*/
+    return this.project.targets;
   }
 
-  updateTree() {
-    this.tree.overwrite(this.workspacePath, JSON.stringify(this.schema, null, 2));
+  async updateTree() {
+    await workspaces.writeWorkspace(this.workspace, this.host);
+    // this.tree.overwrite(this.workspacePath, JSON.stringify(this.schema, null, 2));
   }
 
-  addLogoutArchitect() {
-    this.getArchitect()['azureLogout'] = {
+  async addLogoutArchitect() {
+    this.getArchitect().set('azureLogout', {
       builder: '@azure/ng-deploy:logout',
-    };
+    });
 
-    this.updateTree();
+    await this.updateTree();
   }
 
-  addDeployArchitect() {
+  /*addDeployArchitect() {
     this.getArchitect()['deploy'] = {
       builder: '@azure/ng-deploy:deploy',
       options: {
         host: 'Azure',
         type: 'static',
-        config: 'azure.json',
-      },
+        config: 'azure.json'
+      }
     };
 
     this.updateTree();
-  }
+  }*/
 }

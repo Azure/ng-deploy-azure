@@ -10,7 +10,7 @@ import {
 } from '@azure/ms-rest-nodeauth';
 import { MemoryCache, TokenResponse } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
-import * as Conf from 'conf';
+const Conf = require('conf');
 import { Logger } from '../shared/types';
 import { buildTenantList } from '@azure/ms-rest-nodeauth/dist/lib/subscriptionManagement/subscriptionUtils';
 
@@ -18,11 +18,11 @@ const AUTH = 'auth';
 
 export type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
 
-interface GlobalConfig {
+/*interface GlobalConfig {
   auth: AuthResponse | null;
-}
+}*/
 
-export const globalConfig = new Conf<GlobalConfig>({
+export const globalConfig = new Conf({
   defaults: {
     auth: null,
   },
