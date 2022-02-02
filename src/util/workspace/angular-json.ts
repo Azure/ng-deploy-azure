@@ -77,8 +77,8 @@ export class AngularWorkspace {
 
   async getWorkspace() {
     // let schema: WorkspaceDefinition;
-    const host = createHost(this.tree);
-    const { workspace } = await workspaces.readWorkspace('/', host);
+    // const host = createHost(this.tree);
+    const { workspace } = await workspaces.readWorkspace('/', this.host);
     // let schema = workspace.projects.get('build')
     try {
       // const host = createHost(tree);
@@ -99,7 +99,6 @@ export class AngularWorkspace {
     }
 
     if (!projectName) {
-    } else {
       throw new SchematicsException('No project selected and no default project name available in the workspace.');
     }
     return projectName;
