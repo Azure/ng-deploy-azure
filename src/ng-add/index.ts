@@ -70,6 +70,6 @@ export function addDeployAzure(_options: AddOptions): Rule {
     }
 
     await project.addLogoutArchitect();
-    // project.addDeployArchitect();
+    await project.addDeployArchitect();
   };
 }
