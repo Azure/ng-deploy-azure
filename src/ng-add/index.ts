@@ -21,7 +21,7 @@ export function ngAdd(_options: AddOptions): Rule {
 
 export function addDeployAzure(_options: AddOptions): Rule {
   return async (tree: Tree, _context: SchematicContext) => {
-    const project = new AngularWorkspace(tree, _options);
+    const project = new AngularWorkspace(tree);
     await project.getWorkspaceData(_options);
     const azureJson = readAzureJson(tree);
     const hostingConfig = azureJson ? getAzureHostingConfig(azureJson, project.projectName) : null;
