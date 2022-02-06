@@ -18,10 +18,6 @@ const AUTH = 'auth';
 
 export type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
 
-/*interface GlobalConfig {
-  auth: AuthResponse | null;
-}*/
-
 export const globalConfig = new Conf({
   defaults: {
     auth: null,

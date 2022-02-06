@@ -3,14 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
-// import { JsonParseMode, parseJson } from '@angular-devkit/core';
 import { virtualFs, workspaces } from '@angular-devkit/core';
 import { ProjectDefinition } from '@angular-devkit/core/src/workspace/definitions';
-// import { WorkspaceProject, ProjectType, WorkspaceSchema, WorkspaceTargets, getWorkspace } from 'schematics-utilities';
-// import { parseJson } from '@angular-devkit/core/src/json/parser';
-// import { WorkspaceDefinition } from '@angular-devkit/core';
-// import { WorkspaceTargets } from 'schematics-utilities/dist/angular/workspace-models';
-// import { WorkspaceTool } from '@angular-devkit/core/src/experimental/workspace';
 
 export function createHost(tree: Tree): workspaces.WorkspaceHost {
   return {
@@ -34,14 +28,12 @@ export function createHost(tree: Tree): workspaces.WorkspaceHost {
 }
 
 export async function getWorkspace(tree: Tree, host: workspaces.WorkspaceHost, path = '/') {
-  // const host = createHost(tree);
   const { workspace } = await workspaces.readWorkspace(path, host);
   return workspace;
 }
 
 export class AngularWorkspace {
   tree: Tree;
-  workspacePath: string;
   workspace: workspaces.WorkspaceDefinition;
   host: workspaces.WorkspaceHost;
   schema: workspaces.WorkspaceDefinition;
@@ -52,19 +44,10 @@ export class AngularWorkspace {
   configuration: string;
   path: string;
 
-  constructor(tree: Tree, options: any) {
+  constructor(tree: Tree) {
     this.tree = tree;
-    // this.workspace = await getWorkspace(tree);
-    // this.workspacePath = this.getPath();
-    // this.content = this.getContent();
-    // this.schema = this.getWorkspace();
-    // this.projectName = this.getProjectName(options);
-    // this.project = this.getProject(options); //as WorkspaceProject<ProjectType.Application>;
     this.target = 'build'; // TODO allow configuration of other options
     this.configuration = 'production';
-    /*    this.path = this.project.architect
-      ? this.project.architect[this.target].options.outputPath
-      : `dist/${ this.projectName }`;*/
   }
 
   async getWorkspaceData(options: any) {
@@ -73,22 +56,6 @@ export class AngularWorkspace {
     this.projectName = this.getProjectName(options);
     this.project = this.getProject(options);
     this.path = this.getOutputPath(options);
-  }
-
-  async getWorkspace() {
-    // let schema: WorkspaceDefinition;
-    // const host = createHost(this.tree);
-    const { workspace } = await workspaces.readWorkspace('/', this.host);
-    // let schema = workspace.projects.get('build')
-    try {
-      // const host = createHost(tree);
-      // schema = await workspaces.readWorkspace('/', host);
-      // schema = (parseJson(this.content, JsonParseMode.Loose) as {}) as WorkspaceSchema;
-    } catch (e) {
-      throw new SchematicsException(`Could not parse angular.json: ` + e.message);
-    }
-
-    return workspace;
   }
 
   getProjectName(options: any) {
@@ -131,17 +98,11 @@ export class AngularWorkspace {
   }
 
   getArchitect() {
-    /*if (!this || !this.project || !this.project.architect) {
-      throw new SchematicsException('An error has occurred while retrieving project configuration.');
-    }
-
-    return this.project.architect;*/
     return this.project.targets;
   }
 
   async updateTree() {
     await workspaces.writeWorkspace(this.workspace, this.host);
-    // this.tree.overwrite(this.workspacePath, JSON.stringify(this.schema, null, 2));
   }
 
   async addLogoutArchitect() {
