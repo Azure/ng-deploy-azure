@@ -152,16 +152,16 @@ export class AngularWorkspace {
     await this.updateTree();
   }
 
-  /*addDeployArchitect() {
-    this.getArchitect()['deploy'] = {
+  async addDeployArchitect() {
+    this.getArchitect().set('deploy', {
       builder: '@azure/ng-deploy:deploy',
       options: {
         host: 'Azure',
         type: 'static',
-        config: 'azure.json'
-      }
-    };
+        config: 'azure.json',
+      },
+    });
 
-    this.updateTree();
-  }*/
+    await this.updateTree();
+  }
 }
