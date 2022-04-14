@@ -65,6 +65,9 @@
   "license": "MIT",
   "builders": "./builders.json",
   "schematics": "./collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  },
   "dependencies": {
     "@angular-devkit/architect": "^0.901.4",
     "@angular-devkit/core": "^9.1.4",
