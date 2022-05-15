@@ -6,11 +6,11 @@
 export const loginToAzure = () =>
   Promise.resolve({
     credentials: null,
-    subscriptions: []
+    subscriptions: [],
   });
 
 export const loginToAzureWithCI = () =>
   Promise.resolve({
     credentials: null,
-    subscriptions: []
+    subscriptions: [],
   });

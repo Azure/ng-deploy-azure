@@ -48,7 +48,7 @@ export async function newItemPrompt(newItemOptions: PromptOptions) {
       type: 'input',
       name: newItemOptions.id,
       default: defaultValue,
-      message: newItemOptions.message
+      message: newItemOptions.message,
     });
 
     if (newItemOptions.validate) {
@@ -64,7 +64,7 @@ export function listPrompt(list: ListItem[], name: string, message: string) {
     type: 'autocomplete',
     name,
     source: searchList(list),
-    message
+    message,
   });
 }
 
@@ -79,7 +79,7 @@ function searchList(list: ListItem[]) {
         .filter(input, list, {
           extract(el: ListItem) {
             return el.name;
-          }
+          },
         })
         .map((result: ListItem | { original: ListItem }) => {
           let original: ListItem;

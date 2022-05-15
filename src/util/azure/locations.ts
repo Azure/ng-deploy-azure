@@ -9,129 +9,129 @@ export interface StorageLocation {
 
 export const defaultLocation = {
   id: 'westus',
-  name: 'West US'
+  name: 'West US',
 };
 
 export const locations = [
   {
     id: 'eastasia',
-    name: 'East Asia'
+    name: 'East Asia',
   },
   {
     id: 'southeastasia',
-    name: 'Southeast Asia'
+    name: 'Southeast Asia',
   },
   {
     id: 'centralus',
-    name: 'Central US'
+    name: 'Central US',
   },
   {
     id: 'eastus',
-    name: 'East US'
+    name: 'East US',
   },
   {
     id: 'eastus2',
-    name: 'East US 2'
+    name: 'East US 2',
   },
   {
     id: 'westus',
-    name: 'West US'
+    name: 'West US',
   },
   {
     id: 'northcentralus',
-    name: 'North Central US'
+    name: 'North Central US',
   },
   {
     id: 'southcentralus',
-    name: 'South Central US'
+    name: 'South Central US',
   },
   {
     id: 'northeurope',
-    name: 'North Europe'
+    name: 'North Europe',
   },
   {
     id: 'westeurope',
-    name: 'West Europe'
+    name: 'West Europe',
   },
   {
     id: 'japanwest',
-    name: 'Japan West'
+    name: 'Japan West',
   },
   {
     id: 'japaneast',
-    name: 'Japan East'
+    name: 'Japan East',
   },
   {
     id: 'brazilsouth',
-    name: 'Brazil South'
+    name: 'Brazil South',
   },
   {
     id: 'australiaeast',
-    name: 'Australia East'
+    name: 'Australia East',
   },
   {
     id: 'australiasoutheast',
-    name: 'Australia Southeast'
+    name: 'Australia Southeast',
   },
   {
     id: 'southindia',
-    name: 'South India'
+    name: 'South India',
   },
   {
     id: 'centralindia',
-    name: 'Central India'
+    name: 'Central India',
   },
   {
     id: 'westindia',
-    name: 'West India'
+    name: 'West India',
   },
   {
     id: 'canadacentral',
-    name: 'Canada Central'
+    name: 'Canada Central',
   },
   {
     id: 'canadaeast',
-    name: 'Canada East'
+    name: 'Canada East',
   },
   {
     id: 'uksouth',
-    name: 'UK South'
+    name: 'UK South',
   },
   {
     id: 'ukwest',
-    name: 'UK West'
+    name: 'UK West',
   },
   {
     id: 'westcentralus',
-    name: 'West Central US'
+    name: 'West Central US',
   },
   {
     id: 'westus2',
-    name: 'West US 2'
+    name: 'West US 2',
   },
   {
     id: 'koreacentral',
-    name: 'Korea Central'
+    name: 'Korea Central',
   },
   {
     id: 'koreasouth',
-    name: 'Korea South'
+    name: 'Korea South',
   },
   {
     id: 'francecentral',
-    name: 'France Central'
+    name: 'France Central',
   },
   {
     id: 'southafricanorth',
-    name: 'South Africa North'
-  }
+    name: 'South Africa North',
+  },
 ];
 
 export function getLocation(locationName: string | undefined) {
   if (!locationName) {
     return;
   }
-  return locations.find(location => {
+  return locations.find((location) => {
     return location.id === locationName || location.name === locationName;
   });
 }

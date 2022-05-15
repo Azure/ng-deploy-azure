@@ -10,8 +10,8 @@ export async function confirm(message: string, confirmByDefault: boolean = false
       type: 'confirm',
       name: 'ok',
       default: confirmByDefault,
-      message
-    }
+      message,
+    },
   ]);
   return ok;
 }

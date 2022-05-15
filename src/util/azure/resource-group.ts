@@ -12,7 +12,7 @@ import { spinner } from '../prompt/spinner';
 
 const defaultLocation = {
   id: 'westus',
-  name: 'West US'
+  name: 'West US',
 };
 
 export interface ResourceGroup {
@@ -23,19 +23,19 @@ export interface ResourceGroup {
 
 const resourceGroupsPromptOptions = {
   id: 'resourceGroup',
-  message: 'Under which resource group should we put this static site?'
+  message: 'Under which resource group should we put this static site?',
 };
 
 const newResourceGroupsPromptOptions = {
   id: 'newResourceGroup',
   message: 'Enter a name for the new resource group:',
   name: 'Create a new resource group',
-  default: ''
+  default: '',
 };
 
 const locationPromptOptions = {
   id: 'location',
-  message: 'In which location should the storage account be created?'
+  message: 'In which location should the storage account be created?',
 };
 
 export async function getResourceGroup(
@@ -52,7 +52,7 @@ export async function getResourceGroup(
   spinner.stop();
   let result;
 
-  const initialName = options.project + '-static-deploy';
+  const initialName = `ngdeploy-${options.project}-cxa`;
   const defaultResourceGroupName = await resourceGroupNameGenerator(initialName, resourceGroupList);
 
   if (!options.manual) {
@@ -63,7 +63,7 @@ export async function getResourceGroup(
 
   if (!!resourceGroupName) {
     // provided or quickstart + default
-    result = resourceGroupList.find(rg => rg.name === resourceGroupName);
+    result = resourceGroupList.find((rg) => rg.name === resourceGroupName);
     if (!!result) {
       logger.info(`Using existing resource group ${resourceGroupName}`);
     }
@@ -101,7 +101,7 @@ export async function askLocation(): Promise<StorageLocation> {
 
 function resourceGroupExists(resourceGroupList: ResourceGroupDetails[]) {
   return async (name: string) => {
-    return Promise.resolve(!resourceGroupList.find(rg => rg.name === name));
+    return Promise.resolve(!resourceGroupList.find((rg) => rg.name === name));
   };
 }
 

@@ -8,18 +8,18 @@ export async function getResourceGroups() {
     {
       id: '1',
       name: 'mock',
-      location: 'location'
+      location: 'location',
     },
     {
       id: '2',
       name: 'mock2',
-      location: 'location'
+      location: 'location',
     },
     {
       id: '3',
       name: 'mock3',
-      location: 'location'
-    }
+      location: 'location',
+    },
   ]);
 }
 

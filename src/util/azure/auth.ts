@@ -6,28 +6,33 @@ import {
   interactiveLoginWithAuthResponse,
   DeviceTokenCredentials,
   AuthResponse,
-  loginWithServicePrincipalSecretWithAuthResponse
+  loginWithServicePrincipalSecretWithAuthResponse,
 } from '@azure/ms-rest-nodeauth';
-import { MemoryCache } from 'adal-node';
+import { MemoryCache, TokenResponse } from 'adal-node';
 import { Environment } from '@azure/ms-rest-azure-env';
-import Conf from 'conf';
+import * as Conf from 'conf';
 import { Logger } from '../shared/types';
+import { buildTenantList } from '@azure/ms-rest-nodeauth/dist/lib/subscriptionManagement/subscriptionUtils';
 
 const AUTH = 'auth';
 
-export const globalConfig = new Conf<string | AuthResponse | null>({
+export type TokenCredentials = DeviceTokenCredentials & { tokenCache: { _entries: TokenResponse[] } };
+
+interface GlobalConfig {
+  auth: AuthResponse | null;
+}
+
+export const globalConfig = new Conf<GlobalConfig>({
   defaults: {
-    auth: null
+    auth: null,
   },
-  configName: 'ng-azure'
+  configName: 'ng-azure',
 });
 
 export async function clearCreds() {
   return globalConfig.set(AUTH, null);
 }
 
-//
-//
 /**
  * safe guard if things get wrong and we don't get an AUTH object.
  * we exit if:
@@ -43,17 +48,23 @@ function safeCheckForValidAuthSignature(auth: AuthResponse) {
     (auth && auth.credentials && typeof auth.credentials.getToken !== 'function')
   ) {
     throw new Error(
-      `There was an issue during the login process.\nMake sure to delete "${globalConfig.path}" and try again.`
+      `There was an issue during the login process.\n
+      Make sure to delete "${globalConfig.path}" and try again.`
     );
   }
 }
 
 export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   // a retry login helper function
-  const retryLogin = async (_auth: AuthResponse | null) => {
-    _auth = await interactiveLoginWithAuthResponse();
+  const retryLogin = async (_auth: AuthResponse | null, tenant: string = ''): Promise<AuthResponse> => {
+    _auth = await interactiveLoginWithAuthResponse(!!tenant ? { domain: tenant } : {});
     safeCheckForValidAuthSignature(_auth);
-    _auth.credentials = _auth.credentials as DeviceTokenCredentials;
+    if (!tenant && (!_auth.subscriptions || _auth.subscriptions.length === 0)) {
+      logger.info(`Due to an issue regarding authentication with the wrong tenant, we ask you to log in again.`);
+      const tenants = await buildTenantList(_auth.credentials);
+      _auth = await retryLogin(_auth, tenants[0]);
+    }
+    _auth.credentials = _auth.credentials as TokenCredentials;
     globalConfig.set(AUTH, _auth);
     return _auth;
   };
@@ -65,7 +76,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
   if (auth === null) {
     auth = await retryLogin(auth);
   } else {
-    const creds = auth.credentials as DeviceTokenCredentials;
+    const creds = auth.credentials as TokenCredentials;
     const { clientId, domain, username, tokenAudience, environment } = creds;
 
     // if old AUTH config was found, we extract and check if the required fields are valid
@@ -100,8 +111,6 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
 }
 
 export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> {
-  let auth = null;
-
   logger.info(`Checking for configuration...`);
   const { CLIENT_ID, CLIENT_SECRET, TENANT_ID, AZURE_SUBSCRIPTION_ID } = process.env;
 
@@ -130,7 +139,5 @@ export async function loginToAzureWithCI(logger: Logger): Promise<AuthResponse> 
   }
   logger.info(`Configuration OK`);
 
-  auth = await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
-
-  return auth;
+  return await loginWithServicePrincipalSecretWithAuthResponse(CLIENT_ID, CLIENT_SECRET, TENANT_ID);
 }

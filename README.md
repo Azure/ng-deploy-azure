@@ -10,7 +10,7 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the Angular CLI (v8 or greater) and create a new Angular project.
+1. Install the Angular CLI (v8.3.0 or greater) and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli
@@ -26,17 +26,13 @@
 
 1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Build your Angular app.
-
-   ```sh
-   ng build --prod
-   ```
-
 1. Deploy your project to Azure.
 
    ```sh
    ng run hello-world:deploy
    ```
+
+   The project will be built with the production configuration (like running `ng build -c=production`).
 
 You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
@@ -105,16 +101,13 @@ _Note: at the moment, the command will fail if an `azure.json` file already exis
 You can deploy your application to the selected storage account by running the following command.
 
 ```sh
-ng run <project-name>:deploy
-```
-
-`ng-deploy` was recently released so now it's enough to only type:
-
-```
 ng deploy
 ```
 
-If the build target (`dist/<project-name>` folder) is empty, the project will be built with the production option (similar to running `ng build --prod`).
+By default, the project will be built with the production option (similar to running `ng build -c=production`).
+The files will be taken from the path configured in the `build` command in `angular.json`.
+
+Follow [these instructions](#build-target) if you want to set up a different path and/or build target.
 
 You may be asked to sign in to Azure again. Then, the project will be deployed to the storage account specified in `azure.json`. The link to the deployed app will be presented.
 
@@ -195,6 +188,62 @@ The requirements for these names are:
 
 If the validation fails, the tool will suggest a valid name. You will be able to select it or try another one.
 
+#### Changing the build target <a name="build-target"></a>
+
+By default, the project is built using the `build` target with the `production` configuration,
+as configured in `angular.json`.
+
+You can change this by editing the `target` and/or `configuration` in `azure.json` (after completing `@azure/ng-add`).
+Change it to a target that exists for the project in `angular.json` and optionally with one of its configurations.
+Make sure the target specifies an `outputPath`.
+
+For example, if one of the targets under `projects.hello-world.architect` in `angular.json` is `special-build`
+with an optional configuration named `staging`, you can specify it as the target this way:
+
+```json
+// azure.json
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "hello-world",
+        "target": "special-build",
+        "configuration": "staging"
+      },
+      "azureHosting": {
+        ...
+      }
+    }
+  ]
+}
+```
+
+Another option is to skip build, and deploy directly from a specific location.
+To do this, delete the `target` and `configuration` from `azure.json`,
+and provide a `path` with a value relative to the root of the project.
+
+For example, if the files you with to deploy exist in `public/static/hello-world`,
+change the configuration this way:
+
+```json
+// azure.json
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "hello-world",
+        "path": "public/static/hello-world"
+      },
+      "azureHosting": {
+        ...
+      }
+    }
+  ]
+}
+```
+
+In the future we'll add an option to change this through the command line.
+
 ## Continuous Integration Mode <a name="ci"></a>
 
 When deploying from a CI environment, we switch to a non-interactive login process that requires
@@ -228,7 +277,7 @@ This command will output the following values:
 }
 ```
 
-You can use the Azure CLI to test that these values work and you can logging in:
+You can use the Azure CLI to test that these values work and you can log in:
 
 ```sh
 az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
@@ -283,3 +332,11 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa)
 - Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
 - Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
+
+[azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa
+[active-directory]: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service]: https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa
+[principal-service-portal]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa
+[azure-devops-secrets]: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa
+[github-secrets]: https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
+
