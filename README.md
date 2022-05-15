@@ -32,7 +32,7 @@
    ng run hello-world:deploy
    ```
 
-   The project will be built with the production configuration (like running `ng build --prod`).
+   The project will be built with the production configuration (like running `ng build -c=production`).
 
 You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
@@ -104,7 +104,7 @@ You can deploy your application to the selected storage account by running the f
 ng deploy
 ```
 
-By default, the project will be built with the production option (similar to running `ng build --prod`).
+By default, the project will be built with the production option (similar to running `ng build -c=production`).
 The files will be taken from the path configured in the `build` command in `angular.json`.
 
 Follow [these instructions](#build-target) if you want to set up a different path and/or build target.
