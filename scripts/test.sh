@@ -35,7 +35,7 @@ ng new sample-app --routing true --style css
 cd sample-app
 npm i -D ../azure-ng-deploy*.tgz
 ng add @azure/ng-deploy -m true -n $AZURE_SUBSCRIPTION -g $AZURE_RESOURCE_GROUP -a $AZURE_STORAGE -l "westus" --telemetry false
-ng build --prod
+ng build -c=production
 ng run sample-app:deploy
 cd "$CWD"
 rm -rf "$TEST_FOLDER"
