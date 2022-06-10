@@ -70,7 +70,7 @@ export async function loginToAzure(logger: Logger): Promise<AuthResponse> {
 
   // if old AUTH config is not found, we trigger a new login flow
   if (auth === null) {
-    auth = await retryLogin(auth);
+    auth = await retryLogin(auth, process.env.AZURE_TENANT_ID);
   } else {
     const creds = auth.credentials as TokenCredentials;
     const { clientId, domain, username, tokenAudience, environment } = creds;
