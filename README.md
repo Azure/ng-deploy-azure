@@ -10,7 +10,7 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the Angular CLI (v8.3.0 or greater) and create a new Angular project.
+1. Install the Angular CLI and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli
@@ -18,21 +18,21 @@
    cd hello-world
    ```
 
-1. Add `ng-deploy` to your project and create your Azure blob storage resources.
+2. Add `ng-deploy` to your project and create your Azure blob storage resources.
 
    ```sh
    ng add @azure/ng-deploy
    ```
 
-1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
+3. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Deploy your project to Azure.
+4. Deploy your project to Azure.
 
    ```sh
    ng run hello-world:deploy
    ```
 
-   The project will be built with the production configuration (like running `ng build --prod`).
+   The project will be built with the production configuration (like running `ng build -c=production`).
 
 You will see output similar to the following. Browse to the link and view your site running in Azure blob storage!
 
@@ -50,17 +50,17 @@ If you don't have an Azure subscription, [create your Azure free account from th
 
 ### Angular CLI <a name="angular-cli"></a>
 
-1. Install the Angular CLI (v8 or greater).
+1. Install the Angular CLI.
 
    ```sh
    npm install -g @angular/cli
    ```
 
-1. Run `ng --version`, make sure you have angular CLI version v8.0.0 or greater.
+2. Run `ng --version`, make sure you have angular CLI version v14 or greater.
 
-1. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
+3. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
 
-1. Update your project using the command:
+4. Update your project using the command:
 
    ```sh
    ng update @angular/cli @angular/core
@@ -104,7 +104,7 @@ You can deploy your application to the selected storage account by running the f
 ng deploy
 ```
 
-By default, the project will be built with the production option (similar to running `ng build --prod`).
+By default, the project will be built with the production option (similar to running `ng build -c=production`).
 The files will be taken from the path configured in the `build` command in `angular.json`.
 
 Follow [these instructions](#build-target) if you want to set up a different path and/or build target.
@@ -246,11 +246,16 @@ In the future we'll add an option to change this through the command line.
 
 ## Continuous Integration Mode <a name="ci"></a>
 
-When deploying from a CI environement, we switch to a non-interactive login process that requires you to provide [Service Principal][principal-service] credentials as environment variables. A [Service Principal][principal-service] is an application within [Azure Active Directory][active-directory] that we can use to perform unattended resource and service level operations.
+When deploying from a CI environment, we switch to a non-interactive login process that requires
+you to provide [Service Principal](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa) credentials as environment variables.
+A Service Principal is an application within [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa)
+that we can use to perform unattended resource and service level operations.
 
 ### Creating a Service Principal <a name="sp"></a>
 
-In order to create and get the [Service Principal][principal-service] application credentials, you can either use the [Azure Portal][principal-service-portal] or use the [Azure CLI][azure-cli].
+In order to create and get the Service Principal application credentials, you can either use the
+[Azure Portal](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa)
+or use the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa).
 
 We recommend using the Azure CLI and running the following command:
 
@@ -299,11 +304,16 @@ export AZURE_SUBSCRIPTION_ID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ng run <project-name>:deploy
 ```
 
-> For security reasons, we highly recommend to create and provide these environment variables through a different method, eg. [Github Secrets][github-secrets] or [Azure DevOps Secrets][azure-devops-secrets].
+> For security reasons, we highly recommend to create and provide these environment variables through a different method,
+> eg. [Github Secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)
+> or [Azure DevOps Secrets](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa).
 
 ## Reporting Security Issues <a name="issues"></a>
 
-Security issues and bugs should be reported privately, via email, to the Microsoft Security Response Center (MSRC) at [secure@microsoft.com](mailto:secure@microsoft.com). You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Further information, including the [MSRC PGP](https://technet.microsoft.com/en-us/security/dn606155/?WT.mc_id=ng_deploy_azure-github-cxa) key, can be found in the [Security TechCenter](https://technet.microsoft.com/en-us/security/default/?WT.mc_id=ng_deploy_azure-github-cxa).
+Security issues and bugs should be reported privately, via email, to the Microsoft Security Response Center (MSRC) at [secure@microsoft.com](mailto:secure@microsoft.com).
+You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
+Further information, including the [MSRC PGP](https://technet.microsoft.com/en-us/security/dn606155/?WT.mc_id=ng_deploy_azure-github-cxa) key,
+can be found in the [Security TechCenter](https://technet.microsoft.com/en-us/security/default/?WT.mc_id=ng_deploy_azure-github-cxa).
 
 ## Contributing
 
@@ -322,13 +332,6 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 - Learn more about Azure Static Hosting in this [blog post announcing Static websites on Azure Storage](https://azure.microsoft.com/en-us/blog/static-websites-on-azure-storage-now-generally-available/?WT.mc_id=ng_deploy_azure-github-cxa)
 - Install this [VS Code extension for Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage&WT.mc_id=ng_deploy_azure-github-cxa)
 - Follow this tutorial to [deploy a static website to Azure](https://code.visualstudio.com/tutorials/static-website/getting-started?WT.mc_id=ng_deploy_azure-github-cxa)
-- [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa)
-- [active-directory](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa)
-- [principal-service](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals?WT.mc_id=ng_deploy_azure-github-cxa)
-- [principal-service-portal](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa)
-- [azure-devops-secrets](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa)
-- [github-secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables)
-
 
 [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=ng_deploy_azure-github-cxa
 [active-directory]: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis?WT.mc_id=ng_deploy_azure-github-cxa
