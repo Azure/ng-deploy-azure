@@ -10,7 +10,7 @@
 
 ## Quick-start <a name="quickstart"></a>
 
-1. Install the Angular CLI (v8.3.0 or greater) and create a new Angular project.
+1. Install the Angular CLI and create a new Angular project.
 
    ```sh
    npm install -g @angular/cli
@@ -18,15 +18,15 @@
    cd hello-world
    ```
 
-1. Add `ng-deploy` to your project and create your Azure blob storage resources.
+2. Add `ng-deploy` to your project and create your Azure blob storage resources.
 
    ```sh
    ng add @azure/ng-deploy
    ```
 
-1. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
+3. You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page.
 
-1. Deploy your project to Azure.
+4. Deploy your project to Azure.
 
    ```sh
    ng run hello-world:deploy
@@ -50,17 +50,17 @@ If you don't have an Azure subscription, [create your Azure free account from th
 
 ### Angular CLI <a name="angular-cli"></a>
 
-1. Install the Angular CLI (v8 or greater).
+1. Install the Angular CLI.
 
    ```sh
    npm install -g @angular/cli
    ```
 
-1. Run `ng --version`, make sure you have angular CLI version v8.0.0 or greater.
+2. Run `ng --version`, make sure you have angular CLI version v14 or greater.
 
-1. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
+3. If need instructions to update the CLI, [follow these upgrade instructions](https://www.npmjs.com/package/@angular/cli#updating-angular-cli).
 
-1. Update your project using the command:
+4. Update your project using the command:
 
    ```sh
    ng update @angular/cli @angular/core
@@ -339,4 +339,3 @@ Please refer to [CONTRIBUTING](CONTRIBUTING.md) for CLA guidance.
 [principal-service-portal]: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=ng_deploy_azure-github-cxa
 [azure-devops-secrets]: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables?WT.mc_id=ng_deploy_azure-github-cxa
 [github-secrets]: https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
-

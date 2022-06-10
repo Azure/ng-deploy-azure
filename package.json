@@ -69,9 +69,9 @@
     "save": "devDependencies"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.1302.1",
-    "@angular-devkit/core": "^13.2.1",
-    "@angular-devkit/schematics": "^13.2.1",
+    "@angular-devkit/architect": "^0.1400.1",
+    "@angular-devkit/core": "^14.0.1",
+    "@angular-devkit/schematics": "^14.0.1",
     "@azure/arm-resources": "^2.1.0",
     "@azure/arm-storage": "^14.0.0",
     "@azure/ms-rest-azure-env": "^2.0.0",
@@ -88,26 +88,26 @@
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4",
     "progress": "^2.0.3",
-    "promise-limit": "^2.7.0"
+    "promise-limit": "^2.7.0",
+    "typescript": "~4.7.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@schematics/angular": "^13.2.1",
+    "@schematics/angular": "^14.0.1",
     "@types/conf": "^3.0.0",
     "@types/glob": "^7.1.1",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.2",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^10.17.21",
+    "@types/node": "^14.15.0",
     "@types/progress": "^2.0.3",
     "commitizen": "^4.0.5",
     "cz-conventional-changelog": "^3.1.0",
     "husky": "^4.2.5",
     "jest": "^27.4.7",
     "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
-    "typescript": "^4.5.5"
+    "pretty-quick": "^2.0.1"
   },
   "jest": {
     "roots": [
