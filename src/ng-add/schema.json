@@ -1,5 +1,4 @@
 {
-  "$schema": "http://json-schema.org/schema",
   "$id": "azure-deploy-schematic-ng-add",
   "title": "Azure Deploy ng-add schematic",
   "type": "object",
